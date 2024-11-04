@@ -1,0 +1,55 @@
+.product-categories{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    color:var(--text-colorb);
+    text-shadow: 1.8px 1.8px 10px var(--text-colora),-1.8px -1.8px 10px var(--text-colora);
+    text-align: center;
+
+
+    padding: 3rem 4rem;
+  
+
+
+}
+
+/* .category-badge{
+    cursor: pointer;
+
+
+    width: 10rem;
+    height:6rem;
+    background: no-repeat center;
+    background-size: cover;
+    backdrop-filter: blur(2.5px);
+
+    border:1.5px transparent;
+    border-radius: .5rem;
+    box-shadow: 1px 1px 5px grey,-1px -1px 5px grey;
+} */
+
+.category-badge{
+    cursor: pointer;
+
+
+    width: 10rem;
+    height:6rem;
+    background: no-repeat center ;
+    background-size: cover;
+    backdrop-filter: blur(2.5px);
+
+    border: 3.5px transparent;
+    border-radius: .5rem;
+    box-shadow: 1px 1px 5px #808080,-1px -1px 5px #808080;
+
+}
+
+
+
+.badge-title{
+    backdrop-filter: blur(8.5px);
+}

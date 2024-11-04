@@ -1,0 +1,477 @@
+@import url("./fonts.css");
+
+:root {
+  --color-primary: #D2411E;
+  --color-update: #1ab9bc;
+  --color-update-hover: #17a6a9;
+  --color-create: #54a6f9;
+  --color-create-hover: #519ce7;
+  --color-view: #2eb245;
+  --color-view-hover: #218a33;
+  --color-qty: #d1e3ff;
+  --color-qty-hover: #cbdefc;
+  --text-colora: #000000;
+  --text-colorb: #fff;
+  --color-checkbox: #e00b0b;
+  --color-option-box: #e8fcfd;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+*>a {
+  text-decoration: inherit;
+  color: inherit;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+
+a {
+  color: unset;
+  text-decoration: none;
+}
+.navbar-menu_container-links{
+  position: relative;
+}
+.navbar-user-actions a, .navbar-menu_container-links-user-actions a{
+  position: relative;
+}
+
+
+.tooltip{
+  font-size: 1rem;
+  font-weight: 600;
+  padding: .2rem;
+  position: absolute;
+  top: -1.01rem;
+  background-color: var(--color-create);
+  color: var(--text-colorb);
+
+  border: none;
+  border-radius: .22rem;
+}
+
+.navbar-menu_container-links-user-actions a .tooltip{
+  top: 0;
+}
+
+.navbar-menu_container-links-user-actions a .prdct-tooltip{
+  position: absolute;
+  top: -1.01rem;
+}
+
+.user-icon,
+.cart-icon,
+.pizza-icon,
+.bin-icon,
+.bell-icon {
+  color: var(--color-primary);
+  cursor: pointer;
+  /* margin: 0 .11rem; */
+}
+
+.main-div {
+  padding: 3rem 2rem;
+}
+
+.section-title {
+  text-align: center;
+  margin: 3rem 0;
+}
+
+.dashboard-section-title {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.flex-container {
+  margin: 2.5rem 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3.125rem;
+}
+
+
+
+
+.login-signup-form {
+  position: relative;
+  width: 37%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.form-flex {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.login-signup-form a,
+.form-flex a,
+.login-signup-form p a,
+.form-flex p a,
+.login-signup-form p,
+.form-flex p {
+  font-size: .9rem;
+}
+
+.login-signup-form p,
+.form-flex p {
+  color: var(--text-colora);
+}
+
+.login-signup-form a,
+.form-flex a,
+.login-signup-form p a,
+.form-flex p a {
+  color: #42288e;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+
+.form-check-label {
+  font-size: .9rem;
+  color: #2d2c2c;
+
+}
+
+.login-signup-form input[type="text"],
+.login-signup-form input[type="email"],
+.login-signup-form input[type="password"],
+.form input[type="password"],
+.form input[type="email"],
+.login-signup-form textarea {
+  width: 100%;
+  font-size: 1.1rem;
+  padding: 0.4rem;
+  border: 1px solid #808080;
+  outline: none;
+}
+
+textarea {
+  height: 148px;
+  resize: none;
+}
+
+.login-signup-form button[type="submit"] ,.login-signup-form button[type="button"]{
+  padding: 0.4rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  font-weight: bold;
+  color: var(--text-colorb);
+  border: none;
+  outline: none;
+}
+
+#signup-btn {
+  background-color: var(--color-create);
+}
+
+#signup-btn:hover {
+  background-color: var(--color-create-hover);
+}
+
+#login-btn {
+  background-color: var(--color-view);
+}
+
+#login-btn:hover {
+  background-color: var(--color-view-hover);
+}
+
+#edit-details-btn{
+  background-color: var(--color-update);
+
+}
+
+#edit-details-btn:hover{
+  background-color: var(--color-update-hover);
+}
+
+#verify-email-btn{
+  background-color: var(--color-view);
+
+}
+
+#verify-email-btn:hover{
+  background-color: var(--color-view-hover);
+}
+
+@media screen and (max-width:600px) {
+
+  .login-signup-form {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.2rem;
+  }
+}
+
+
+.profile-div {
+  width: 98vw;
+}
+
+.profile-div-content {
+  width: 70%;
+  height: 100%;
+  padding: .5rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+}
+
+
+.profile-header-content,
+.profile-content {
+  border: 1px solid #3c3c3d;
+  width: 98%;
+}
+
+.profile-content {
+  padding: 1.8rem 1.5rem;
+}
+
+.profile-content ul {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+
+
+  font-size: 1rem;
+
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+  gap: .99rem;
+  justify-content: flex-start;
+  align-items: start;
+}
+
+.buttons-container button , .update-qty {
+  cursor: pointer;
+
+  padding: .4rem .8rem;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+}
+
+.edit-details,
+.place-order {
+  background-color: var(--color-view);
+  color: var(--text-colorb);
+}
+
+.edit-details:hover,
+.place-order:hover {
+  background-color: var(--color-view-hover);
+}
+
+
+.change-password , .update-qty{
+  background-color: var(--color-update);
+  color: var(--text-colorb);
+}
+
+.change-password:hover ,.update-qty:hover{
+  background-color: var(--color-update-hover);
+}
+
+@media screen and (min-width:550px) {
+
+  .profile-content ul {
+    font-size: 1.35rem;
+  }
+
+}
+
+@media screen and (min-width:680px) {
+  .profile-content {
+    padding: 2.4rem 1.5rem;
+  }
+}
+
+
+@media screen and (max-width:650px) {
+  .buttons-container button {
+    font-size: .9rem;
+    padding: .4rem .3rem;
+  }
+}
+
+
+/* Styling the add-todo-modal */
+.modal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:#0a0b0cba;
+  display: grid;
+  place-items: center;
+  visibility: hidden;
+  z-index: -10;
+}
+
+/* Styling the add-todo-modal-form and its elements */
+.modal-form{  
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+
+  width: 280px;
+  height:300px;
+
+  padding: 1rem;
+  background-color: #FFF7FF;
+  border: 1px solid purple;
+  border-radius: .4rem;
+
+ 
+}
+
+
+
+.modal-form>input,.modal-form>select{
+  width: fit-content;
+  padding: .4rem;
+
+}
+
+.modal-form>select{
+  cursor: pointer;
+}
+
+
+/* Styling the cross-icon */
+.modal  .cross-icon{
+  background-color: white;
+  padding: 1.2rem 1.5rem;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+
+
+
+.show{
+  visibility: visible;
+  z-index: 10;
+}
+
+
+.cart-card,
+.order-card {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: .6rem;
+
+}
+
+.order-card{
+  width: 100%;
+}
+
+.order-card .item-details {
+  cursor: pointer;
+  border: 1px solid var(--color-update-hover);
+  padding: .55rem;
+  margin:.5rem;
+}
+
+
+
+.item-details ul li {
+  font-size: 1rem;
+}
+
+.cart-img,
+.order-img {
+  width: 22vw;
+  height: 17rem;
+}
+
+.order-card-btn-container button {
+  cursor: default;
+  font-size: .85rem;
+}
+
+.order-card-btn-container .delete-order {
+  cursor: pointer;
+}
+
+
+.update-status select,
+.update-status option {
+  font-size: 1rem;
+  cursor: pointer;
+
+}
+
+@media screen and (max-width:480px) {
+
+  .cart-img{
+    width: 45vw;
+    height: 9rem;
+  }
+
+  .order-card .item-details ul li{
+    font-size: .8rem;
+  }
+}
+
+@media screen and (min-width:481px) and (max-width:800px) {
+
+  .cart-img {
+    width: 30vw;
+    height: 9rem;
+  }
+
+}
+
+@media screen and (min-width:801px) and (max-width:950px) {
+  .cart-img {
+    height: 10rem;
+  }
+}

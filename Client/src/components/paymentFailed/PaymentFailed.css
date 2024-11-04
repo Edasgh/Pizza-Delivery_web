@@ -1,0 +1,38 @@
+
+.payment-failed {
+  text-align: center;
+  padding: 40px 0;
+  background: #f5f0eb;
+}
+
+.payment-failed .payment-failed-card {
+  background: white;
+  padding: 60px;
+  border-radius: 4px;
+  box-shadow: 0 2px 3px #C8D0D8;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.payment-failed .payment-failed-card h1 {
+  color: #fd0000;
+  font-weight: 900;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.payment-failed .payment-failed-card p {
+  color: #5a2d03;
+  font-size: 20px;
+  margin: 0;
+}
+
+.payment-failed .payment-failed-card i {
+  color: #f27609;
+  font-size: 100px;
+  line-height: 200px;
+  margin-left: -15px;
+}
+.payment-failed .payment-failed-card .redirect {
+text-decoration: underline;
+}

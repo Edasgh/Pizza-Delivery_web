@@ -1,0 +1,145 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.2rem;
+}
+.form{
+    width: 70%;
+}
+
+.form-title{
+    width: 70%;
+    text-align: center;
+}
+
+.form>input[type="text"],
+.form>input[type="number"],
+.form>textarea {
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 0.4rem;
+    border: 1px solid #808080;
+    outline: none;
+}
+
+.form>button[type="submit"],.form button[type="button"] {
+    padding: 0.4rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: var(--color-create);
+    color: var(--text-colorb);
+    border: none;
+    outline: none;
+
+    &:hover {
+        background-color: var(--color-create-hover);
+    }
+}
+
+#update-product-btn{
+    background-color: var(--color-update);
+    
+    &:hover{
+        background-color: var(--color-update-hover);
+    }
+}
+
+textarea {
+    height: 148px;
+    resize: none;
+}
+
+.variants-container,
+.extraOptions-container {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#product_type-option-container label,
+#category-option-container label,
+#product_type-option-container select,
+#category-option-container select,
+#product_type-option-container select option,
+#category-option-container select option ,
+#pizzasauce-option-container label,
+#pizzasauce-option-container select,
+#pizzasauce-option-container select option,
+#pizzacheese-option-container label,
+#pizzacheese-option-container select,
+#pizzacheese-option-container select option,
+#pizzacrust-option-container label,
+#pizzacrust-option-container select,
+#pizzacrust-option-container select option{
+    font-size: 1rem;
+    cursor: pointer;
+
+}
+
+#product_type-option-container select ,#category-option-container select {
+    padding: .5rem;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: .55rem;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--color-option-box);
+    padding: 1.2rem;
+    border: none;
+    border-radius: .7rem;
+    box-shadow: 1px 1px 5px #b1aeae, -1px -1px 5px #b9b7b7;
+}
+
+.options-container .option {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    justify-content: start;
+    align-items: center;
+}
+
+.option label {
+    font-size: .9rem;
+    cursor: pointer;
+}
+
+.option input[type="checkbox"] {
+    cursor: pointer;
+    accent-color: var(--color-checkbox);
+
+}
+
+@media screen and (max-width:800px) {
+
+    .form {
+        width: 80%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1.2rem;
+    }
+
+    .form>input[type="text"],
+.form>input[type="number"],
+.form>textarea,
+.form>button[type="submit"]  {
+    font-size: .9rem;
+}
+
+.form-title{
+    width: 100%;
+}
+
+}
+

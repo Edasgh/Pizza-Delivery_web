@@ -1,0 +1,125 @@
+.card {
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 50px;
+}
+
+.card .images {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+  transition: all .2s ease;
+
+}
+
+.card .images img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+}
+
+.card .images .mainImg {
+  z-index: 1;
+}
+
+.card .images span {
+  background-color:var(--text-colorb);
+  color: teal;
+  padding: 3px 5px;
+  margin: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 3;
+}
+
+
+
+.card .prices {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+}
+
+.card .prices .oldPrice {
+  color: #a19e9e;
+  text-decoration: line-through;
+  font-weight: 580;
+  font-size: 15px;
+}
+
+.card .prices .price {
+  font-weight: 580;
+  font-size: 15px;
+  color: #008000;
+}
+
+
+.card h2 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+
+
+.card span {
+  position: absolute;
+}
+
+.card .button-container {
+  margin-top: .8rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.card .card-btn {
+  flex: .9;
+  padding: 0.7rem 1rem;
+  background-color: var(--color-create);
+  color: var(--text-colorb);
+  border: none;
+  border-radius: 0.5rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.card .card-btn:hover {
+  background-color:var(--color-create-hover)
+}
+
+.card-btn .cart-icon{
+  color: var(--text-colorb);
+}
+
+.quantity {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.quantity span {
+  flex: 2;
+}
+
+.quantity button {
+  flex: 1;
+  padding: 0.7rem;
+  background-color: var(--color-qty);
+  border: none;
+  border-radius: 0.5rem;
+  outline: none;
+  cursor: pointer;
+  font-weight: bold;
+
+  &:hover{
+    background-color: var(--color-qty-hover);
+  }
+}

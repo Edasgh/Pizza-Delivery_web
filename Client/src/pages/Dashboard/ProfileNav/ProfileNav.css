@@ -1,0 +1,17 @@
+.profile-nav {
+    padding: .5rem;
+    border: 1px solid grey;
+}
+
+
+.profile-nav ul li {
+    text-align: center;
+    cursor: pointer;
+    padding: .3rem;
+}
+
+.profile-nav ul li:hover {
+    color: var(--text-colorb);
+    background-color: var(--color-create);
+}
+
