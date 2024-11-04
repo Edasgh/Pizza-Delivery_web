@@ -23,8 +23,8 @@ This is a web application designed for ordering pizzas online. It allows users t
 
 4. Inventory Management and Product Stock Updates: For the admin side, i implemented a mini inventory management system. It tracked the availability of ingredients, updating stock levels after each order. This ensured a smooth and efficient process for both users and admin.And admin will be able to see notifications if any product’s quantity falls below a threshold, ensuring timely replenishment and preventing any disruption in service.
 
-
-* Linkedin Video and Post :https://www.linkedin.com/posts/eshita-das-084b962b0_level3-webdevelopment-oasisinfobyte-activity-7206530934668447745-_xqu?utm_source=share&utm_medium=member_desktop
+**Demo Video** : 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/n-UJ_8Dl7mo?si=MfTsVPQu-DNmiwRd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 
 ## Technologies Used
@@ -37,15 +37,19 @@ This is a web application designed for ordering pizzas online. It allows users t
 
 1. Clone the repository:
    ```bash
-   git clone 
+   git clone https://github.com/Edasgh/Pizza-Delivery_web.git
    ```
 
 2. Install dependencies:
    ```bash
    npm install
+   cd Client
+   npm install
+  
+  
    ```
 
-3. Set up environment variables (create a `.env` file):
+3. Set up environment variables (create a `.env` file) in the root directory:
    ```plaintext
    MONGO_URI=<your-database-url>
    PORT=8080
@@ -54,8 +58,9 @@ This is a web application designed for ordering pizzas online. It allows users t
    KEY_SECRET=<your-razorpay-key-secret>
    ```
 
-4. Start the application:
+4. Go to the root directory & start the application:
    ```bash
+   cd..
    npm start
    ```
 
