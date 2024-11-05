@@ -1,5 +1,5 @@
 
-# PIZZA DELIVERY APPLICATION
+# PizzaLand : PIZZA DELIVERY APPLICATION
 
 This is a web application designed for ordering pizzas online. It allows users to browse a selection of pizzas, customize their orders, and arrange for delivery.
 
