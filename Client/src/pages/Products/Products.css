@@ -17,21 +17,6 @@
 
 }
 
-/* .category-badge{
-    cursor: pointer;
-
-
-    width: 10rem;
-    height:6rem;
-    background: no-repeat center;
-    background-size: cover;
-    backdrop-filter: blur(2.5px);
-
-    border:1.5px transparent;
-    border-radius: .5rem;
-    box-shadow: 1px 1px 5px grey,-1px -1px 5px grey;
-} */
-
 .category-badge{
     cursor: pointer;
 

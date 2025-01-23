@@ -3,6 +3,9 @@
 
 This is a web application designed for ordering pizzas online. It allows users to browse a selection of pizzas, customize their orders, and arrange for delivery.
 
+## Live Link:
+ (will be uploaded sortly)
+
 
 ## Features
 
@@ -26,8 +29,6 @@ This is a web application designed for ordering pizzas online. It allows users t
 **Demo Video** : 
 [Watch Here](https://youtu.be/qz2tmYiAUfk)
 
-
-
 ## Technologies Used
 
 - **Frontend**: React.js, CSS
@@ -43,6 +44,7 @@ This is a web application designed for ordering pizzas online. It allows users t
 
 2. Install dependencies:
    ```bash
+   cd Server
    npm install
    cd Client
    npm install
@@ -61,8 +63,10 @@ This is a web application designed for ordering pizzas online. It allows users t
 
 4. Go to the root directory & start the application:
    ```bash
-   cd..
+   cd Server
    npm start
+   cd Client
+   npm run dev
    ```
 
 5. Visit `http://localhost:5173` in your browser.

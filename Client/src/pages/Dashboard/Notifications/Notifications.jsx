@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { product_types } from '../../../data';
-import { getUserDetails } from '../../../redux/slices/userSlice';
 import { fetchProductsBelow20 } from '../../../redux/slices/productsBelow20Slice';
 
 const token = localStorage.getItem("token");
@@ -21,8 +20,6 @@ const Notifications = () => {
         if (!token) {
             navigate("/login")
         } else {
-            // dispatch(getUserDetails());
-
             dispatch(fetchProductsBelow20());
 
         }
@@ -33,12 +30,6 @@ const Notifications = () => {
             navigate("/");
         }
     },[])
-
-
-
-
-
-
 
     return (
         <>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { openOrHideModal } from '../../hooks/OpenOrHideModal';
 
-const OrderAddressModal = ({ address, setAddress }) => {
+const OrderAddressModal = ({ address, setAddress , placeOrder }) => {
 
 
   const handleAddAddress = (e) => {
@@ -16,12 +16,15 @@ const OrderAddressModal = ({ address, setAddress }) => {
       <form
         className="modal-form"
         id="add-todo"
-        onSubmit={(e) => handleAddAddress(e)}
+        onSubmit={(e) => {
+          handleAddAddress(e);
+          placeOrder();
+        }}
       >
         <label htmlFor="address" className='poppins-medium' style={{ fontSize: "1.2rem" }}>Order Address : </label>
         <textarea name="address" id="address" placeholder='Add City,Street No.,Nearest LandMark etc.' value={address} onChange={(e) => {setAddress(e.target.value) }} style={{ padding: ".5rem .7rem", fontSize: "1.1rem" }} required></textarea>
 
-        <button type="submit" className="update-qty poppins-regular" >Add Address</button>
+        <button type="submit" className="update-qty poppins-regular" >Place Order</button>
       </form>
       <i
         className="fa-solid fa-xmark cross-icon"

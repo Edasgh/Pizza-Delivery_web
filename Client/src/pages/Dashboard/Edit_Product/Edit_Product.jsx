@@ -5,6 +5,10 @@ import "../../../AddProduct_EditProduct.css";
 import { getProduct } from '../../../hooks/getProduct';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { BACKEND_BASE_URL } from '../../../rootExports';
 
 
 
@@ -100,12 +104,12 @@ const Edit_Product = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (Product_type === null) {
-      alert("Please Select A Product Type")
+      toast.error("Please Select A Product Type")
     }
 
 
     if (category === null) {
-      alert("Please select a category")
+      toast.error("Please select a category")
     }
 
     if (Product_type !== null || category !== null) {
@@ -114,7 +118,7 @@ const Edit_Product = () => {
       }
 
       try {
-        await axios.put(`http://localhost:8080/api/product/${productId}/update`, {
+        await axios.put(`${BACKEND_BASE_URL}/api/product/${productId}/update`, {
           name: name,
           product_type: Product_type,
           variants: [...variants],
@@ -132,11 +136,13 @@ const Edit_Product = () => {
           }
 
         );
-        alert("Product updated successfully!");
-        navigate("/profile_dashboard/view_products");
+        toast.success("Product updated successfully!");
+        setTimeout(() => {
+           navigate("/profile_dashboard/view_products");
+        }, 1500);
       } catch (error) {
+        toast.error("Something went wrong!");
         console.log(error);
-        alert("Something went wrong!");
       }
     }
 
@@ -149,7 +155,7 @@ const Edit_Product = () => {
 
   return (
     <>
-   
+    <ToastContainer position='top-center' theme='light'/>
     {seachQuery && quantityQuery ? (
       <>
       <div style={{ width: "100%" }}>

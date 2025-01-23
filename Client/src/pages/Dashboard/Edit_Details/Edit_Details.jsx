@@ -2,6 +2,10 @@ import React from 'react';
 import { useState } from "react";
 import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { BACKEND_BASE_URL } from '../../../rootExports';
 
 const Edit_Details = () => {
     const { data: userDetails, status } = useSelector((state) => state.user);
@@ -11,7 +15,7 @@ const Edit_Details = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:8080/api/user/edit_details", {
+        const response = await fetch(`${BACKEND_BASE_URL}/api/user/edit_details`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -25,11 +29,13 @@ const Edit_Details = () => {
         });
         const json = await response.json();
         if (response.status==201) {
-            alert("Updated profile successfully!")
+            toast.success("Updated profile successfully!")
 
-            navigate("/profile_dashboard");
+           setTimeout(() => {
+             navigate("/profile_dashboard");
+           }, 1800);
         } else {
-            alert("Error : An unknown error occurred!")
+            toast.error("Error : An unknown error occurred!")
 
         }
     };
@@ -40,50 +46,51 @@ const Edit_Details = () => {
 
 
     return (
-        <>
-            <div className="main-div" style={{ width: "100%" }}>
-                <h1 className="section-title poppins-semibold form-title">Edit Your Details</h1>
-                <form
-                    onSubmit={handleSubmit}
-                    className="form"
-                >
+      <>
+        <ToastContainer position="top-center" theme="light" />
+        <div className="main-div" style={{ width: "100%" }}>
+          <h1 className="section-title poppins-semibold form-title">
+            Edit Your Details
+          </h1>
+          <form onSubmit={handleSubmit} className="form">
+            <input
+              type="text"
+              value={credentials.name}
+              onChange={onChange}
+              id="name"
+              name="name"
+              aria-describedby="name"
+              placeholder="Enter your name"
+              required
+            />
+            <input
+              type="email"
+              value={credentials.email}
+              onChange={onChange}
+              id="email"
+              name="email"
+              aria-describedby="emailHelp"
+              placeholder="Enter your email"
+              required
+            />
 
+            <textarea
+              name="address"
+              id="address"
+              value={credentials.address}
+              placeholder="Enter your address"
+              onChange={onChange}
+              required
+            ></textarea>
+            <hr />
 
-                    <input
-                        type="text"
-                        value={credentials.name}
-                        onChange={onChange}
-                        id="name"
-                        name="name"
-                        aria-describedby="name"
-                        placeholder="Enter your name"
-                        required
-
-                    />
-                    <input
-                        type="email"
-                        value={credentials.email}
-                        onChange={onChange}
-                        id="email"
-                        name="email"
-                        aria-describedby="emailHelp"
-                        placeholder="Enter your email"
-                        required
-
-                    />
-
-
-                    <textarea name="address" id="address" value={credentials.address} placeholder='Enter your address' onChange={onChange} required></textarea>
-                    <hr />
-
-
-                    <button type="submit" id="edit-details-btn" >
-                        Update Profile
-                    </button>
-                </form>
-            </div>
-        </>
-    )
+            <button type="submit" id="edit-details-btn">
+              Update Profile
+            </button>
+          </form>
+        </div>
+      </>
+    );
 }
 
 export default Edit_Details;

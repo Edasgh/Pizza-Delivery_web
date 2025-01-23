@@ -17,10 +17,10 @@ const Menu = () => {
     return (
         <>
             <p>
-                <Link to="/" >HomePage</Link>
+                <Link to="/" >Home</Link>
             </p>
             <p>
-                <Link to="/about">About Us</Link>
+                <Link to="/about">About</Link>
             </p>
         </>
     );

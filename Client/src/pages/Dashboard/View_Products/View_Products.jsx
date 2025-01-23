@@ -4,6 +4,9 @@ import ProductCard from '../../../components/ProductCard/ProductCard';
 import { useDispatch, useSelector } from "react-redux";
 import { searchProduct_s } from '../../../hooks/getProduct';
 import { STATUSES, fetchProducts } from '../../../redux/slices/productSlice';
+import ErrorPage from '../../../components/ErrorPage';
+import Loading from '../../../components/Loading';
+
 
 
 
@@ -80,67 +83,96 @@ const View_Products = () => {
   }, []);
 
   if (sts === STATUSES.LOADING) {
-    return <h2>Loading....</h2>;
+    return (
+      <div style={{ width: "70vw", height: "50vh" }}>
+        <Loading />
+      </div>
+    );
   }
 
   if (sts === STATUSES.ERROR) {
-    return <h2>Something went wrong!</h2>;
+    return (
+      <div style={{ width: "70vw", height: "70vh" }}>
+        <ErrorPage />
+      </div>
+    );
   }
 
 
   return (
     <>
-
       <div className="profile-header-content">
-        <h2 className="poppins-semibold dashboard-section-title">All Products</h2>
+        <h2 className="poppins-semibold dashboard-section-title">
+          All Products
+        </h2>
         <div className="product-categories">
-          {Categories && Categories.map(c => {
-            return (
-              <div key={c.id} onClick={() => {
-                if (!c.product_type && !c.category) {
-                  dispatch(fetchProducts());
-                  setProducts([...items]);
-                } else {
-                  searchProducts(c.product_type, c.category)
-                }
-
-              }}>
-                <div className="category-badge" style={{ width: "8rem", color: "var(--text-colora)", textShadow: "none", textAlign: "center", height: "3rem" }}>
-                  <span className='poppings-bold badge-title' style={{ fontSize: "1rem" }}>{c.title}</span>
+          {Categories &&
+            Categories.map((c) => {
+              return (
+                <div
+                  key={c.id}
+                  onClick={() => {
+                    if (!c.product_type && !c.category) {
+                      dispatch(fetchProducts());
+                      setProducts([...items]);
+                    } else {
+                      searchProducts(c.product_type, c.category);
+                    }
+                  }}
+                >
+                  <div
+                    className="category-badge"
+                    style={{
+                      width: "8rem",
+                      color: "var(--text-colora)",
+                      textShadow: "none",
+                      textAlign: "center",
+                      height: "3rem",
+                    }}
+                  >
+                    <span
+                      className="poppings-bold badge-title"
+                      style={{ fontSize: "1rem" }}
+                    >
+                      {c.title}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            )
-          })}
+              );
+            })}
         </div>
       </div>
 
-
-
-      {
-       products.length!==0 && products.map((product) => (
-          <ProductCard key={product._id}
+      {products.length !== 0 &&
+        products.map((product) => (
+          <ProductCard
+            key={product._id}
             product={product}
-            variants={product.variants} />
-        ))
-      }
-
-
+            variants={product.variants}
+          />
+        ))}
 
       {products.length == 0 && (
         <>
-          {
-            items && items.length !== 0 && items.map((product) => (
-              <ProductCard key={product._id}
+          {items &&
+            items.length !== 0 &&
+            items.map((product) => (
+              <ProductCard
+                key={product._id}
                 product={product}
-                variants={product.variants} />
-            ))
-          }
+                variants={product.variants}
+              />
+            ))}
+          {!items ||
+            (items.length === 0 && (
+              <div style={{ width: "70vw", height: "50vh" }}>
+                <Loading />
+              </div>
+            ))}
         </>
       )}
-
     </>
-
-  )
+  );
 }
 
 export default View_Products;

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetails } from '../../../redux/slices/userSlice';
 import { STATUSES } from '../../../redux/slices/productSlice';
 import { fetchProductsBelow20 } from '../../../redux/slices/productsBelow20Slice';
+import NavLoading from '../../../components/NavLoading/NavLoading';
 
 const token = localStorage.getItem("token");
 
@@ -32,16 +33,10 @@ const ProfileNav = () => {
 
 
 
-  if (status === STATUSES.LOADING) {
-    return <h2>Loading....</h2>;
+  if (status === STATUSES.LOADING || status === STATUSES.ERROR) {
+    return <NavLoading />;
   }
-
-  if (status === STATUSES.ERROR) {
-    return <h2>Something went wrong!</h2>;
-  }
-
-
-
+ 
   return (
     <>
       <nav className="profile-nav">
