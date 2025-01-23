@@ -5,7 +5,7 @@ dotenv.config();
 const cors = require("cors");
 const { connectDB } = require("./config/db");
 const port = process.env.PORT;
-
+const env = process.env.NODE_ENV;
 
 const AuthRoutes = require("./routes/AuthRoutes");
 const OrderRoutes = require("./routes/OrderRoutes");
@@ -22,5 +22,6 @@ app.use("/api/product", ProductRoutes);
 
 app.listen(port, async () => {
   await connectDB();
-  console.log(`Server running on port : ${port}`);
+ if(env==="production")  console.log(`Pizzaland server running`);
+ else  console.log(`Server running on port : ${port}`);
 });

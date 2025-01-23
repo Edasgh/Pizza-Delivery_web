@@ -43,11 +43,12 @@ export default userSlice.reducer;
 
 //function to fetch products
 export const getUserDetails=createAsyncThunk("user/fetch",async()=>{
+    const token = localStorage.getItem("token")
     const response = await fetch("http://localhost:8080/api/user/", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token": localStorage.getItem("token"),
+                "auth-token": token,
             }
         });
         const userDetails = await response.json();
