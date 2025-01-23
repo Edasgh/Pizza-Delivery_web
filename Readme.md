@@ -24,15 +24,8 @@ This is a web application designed for ordering pizzas online. It allows users t
 4. Inventory Management and Product Stock Updates: For the admin side, i implemented a mini inventory management system. It tracked the availability of ingredients, updating stock levels after each order. This ensured a smooth and efficient process for both users and admin.And admin will be able to see notifications if any product’s quantity falls below a threshold, ensuring timely replenishment and preventing any disruption in service.
 
 **Demo Video** : 
-<Embed
-  html={false}
-  url="https://github.com/readmeio/api-explorer/pull/671"
-  title="RDMD CSS theming and style adjustments. by rafegoldberg · Pull Request #671 · readmeio/api-explorer"
-  favicon="https://github.com/favicon.ico"
-  image="https://avatars2.githubusercontent.com/u/6878153?s=400&v=4"
-/>
+[Watch Here]([https://www.youtube.com/embed/qz2tmYiAUfk?si=plxYr8h1dylzSbWF](https://youtu.be/qz2tmYiAUfk))
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/qz2tmYiAUfk?si=plxYr8h1dylzSbWF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 
 ## Technologies Used
