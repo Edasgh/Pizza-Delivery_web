@@ -7,7 +7,7 @@ const { connectDB } = require("./config/db");
 const port = process.env.PORT;
 const env = process.env.NODE_ENV;
 
-const AuthRoutes = require("./routes/AuthRoutes.js");
+const AuthRoutes = require("./routes/Authroutes.js");
 const OrderRoutes = require("./routes/OrderRoutes.js");
 const ProductRoutes = require("./routes/ProductRoutes.js");
 
