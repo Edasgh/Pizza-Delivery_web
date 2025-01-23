@@ -25,6 +25,7 @@ This is a web application designed for ordering pizzas online. It allows users t
 
 **Demo Video** : 
 [Watch Here](https://youtu.be/qz2tmYiAUfk?si=govL5XtBfCiBNFtH)
+<iframe src="https://youtu.be/qz2tmYiAUfk?si=govL5XtBfCiBNFtH" width="200px" height="200px"></iframe>
 
 
 ## Technologies Used
