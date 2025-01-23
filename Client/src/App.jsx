@@ -1,13 +1,4 @@
-import {
-  createBrowserRouter,
-  /*This is the recommended router for all React Router web projects. It uses the DOM(Document Object Model) History API to update the URL and manage the history stack.
-It also enables the v6.4 data APIs like loaders, actions, fetchers and more. */
-  RouterProvider,
-  /*All data router objects are passed to this component to render your app and enable the rest of the data APIs. */
-  Outlet,
-  /* An '<Outlet>' should be used in parent route elements to render their child route elements. This allows nested UI to show up when child routes are rendered. If the parent route matched exactly, it will render a child index route or nothing if there is no index route. */
-  // Route ,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import Home from "./pages/Home/Home";
@@ -30,7 +21,6 @@ import PaymentFailed from "./components/paymentFailed/PaymentFailed";
 import Notifications from "./pages/Dashboard/Notifications/Notifications";
 import About from "./pages/About/About";
 
-
 const Layout = () => {
   return (
     <>
@@ -38,21 +28,21 @@ const Layout = () => {
       <Outlet />
       <Footer />
     </>
-  )
-}
+  );
+};
 
-const DashboardLayOut=()=>{
-  return(
+const DashboardLayOut = () => {
+  return (
     <>
-    <div className="profile-div flex-container">
-      <ProfileNav/>
+      <div className="profile-div flex-container">
+        <ProfileNav />
         <div className="profile-div-content">
-          <Outlet/>
+          <Outlet />
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 const router = createBrowserRouter([
   {
@@ -62,97 +52,97 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Home />
+        element: <Home />,
       },
       {
         path: "/about",
-        element: <About />
+        element: <About />,
       },
       {
         path: "/:productId/product",
-        element: <Product />
+        element: <Product />,
       },
       {
         path: "/custom_pizza",
-        element: <CustomPizza />
+        element: <CustomPizza />,
       },
       {
         path: "/signup",
-        element: <SignUp />
+        element: <SignUp />,
       },
       {
         path: "/login",
-        element: <Login />
+        element: <Login />,
       },
       {
         path: "/forgot_password",
-        element: <ForgotPassword />
+        element: <ForgotPassword />,
       },
-     
+
       {
         path: "/profile_dashboard",
-        element: <DashboardLayOut/> ,
-        children:[
+        element: <DashboardLayOut />,
+        children: [
           {
-            path:"",
-            element:<Profile/>
+            path: "",
+            element: <Profile />,
           },
           {
-            path:"/profile_dashboard/notifications",
-            element:<Notifications/>
+            path: "/profile_dashboard/notifications",
+            element: <Notifications />,
           },
           {
-            path:"/profile_dashboard/:userId/edit_details",
-            element:<Edit_Details/>
+            path: "/profile_dashboard/:userId/edit_details",
+            element: <Edit_Details />,
           },
           {
-            path:"/profile_dashboard/:userId/change_password",
-            element:<Change_password/>
+            path: "/profile_dashboard/:userId/change_password",
+            element: <Change_password />,
           },
           {
-            path:"/profile_dashboard/cart",
-            element:<Cart/>
+            path: "/profile_dashboard/cart",
+            element: <Cart />,
           },
           {
-            path:"/profile_dashboard/orders",
-            element:<Orders/>
+            path: "/profile_dashboard/orders",
+            element: <Orders />,
           },
           {
-            path:"/profile_dashboard/add_product",
-            element:<AddProduct/>
+            path: "/profile_dashboard/add_product",
+            element: <AddProduct />,
           },
           {
-            path:"/profile_dashboard/view_products",
-            element:<View_Products/>
+            path: "/profile_dashboard/view_products",
+            element: <View_Products />,
           },
           {
-            path:"/profile_dashboard/:productId/edit_product",
-            element:<Edit_Product/>
+            path: "/profile_dashboard/:productId/edit_product",
+            element: <Edit_Product />,
           },
-        ]
-      },{
-        path:"/change_password",
-        element:<Change_password/>
+        ],
       },
       {
-        path:"/paymentsuccess",
-        element:<PaymentSuccess/>
+        path: "/change_password",
+        element: <Change_password />,
       },
       {
-        path:"/paymentfailure",
-        element:<PaymentFailed/>
+        path: "/paymentsuccess",
+        element: <PaymentSuccess />,
+      },
+      {
+        path: "/paymentfailure",
+        element: <PaymentFailed />,
       },
     ],
   },
 ]);
-
 
 const App = () => {
   return (
     <>
       <RouterProvider router={router} />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

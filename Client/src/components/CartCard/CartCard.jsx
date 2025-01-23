@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BACKEND_BASE_URL } from '../../rootExports';
 
 const CartCard = ({ product , link, address }) => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const CartCard = ({ product , link, address }) => {
 
   const updateQty = async () => {
     try {
-      await axios.put(`http://localhost:8080/api/product/cart/${product._id}/updateQty`, {
+      await axios.put(`${BACKEND_BASE_URL}/api/product/cart/${product._id}/updateQty`, {
         quantity: quantity,
       },
         {
@@ -34,7 +35,7 @@ const CartCard = ({ product , link, address }) => {
   }
   const removeFromCart = async () => {
     try {
-      await axios.delete(`http://localhost:8080/api/product/cart/${product._id}/removeFromCart`,
+      await axios.delete(`${BACKEND_BASE_URL}/api/product/cart/${product._id}/removeFromCart`,
         {
           headers: {
             "Content-Type": "application/json",
