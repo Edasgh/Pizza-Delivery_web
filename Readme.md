@@ -4,7 +4,7 @@
 This is a web application designed for ordering pizzas online. It allows users to browse a selection of pizzas, customize their orders, and arrange for delivery.
 
 ## Live Link:
- (will be uploaded sortly)
+ https://pizza-delivery-web.onrender.com
 
 
 ## Features
