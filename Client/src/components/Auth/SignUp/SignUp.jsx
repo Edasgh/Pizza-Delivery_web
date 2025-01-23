@@ -25,14 +25,19 @@ const SignUp = () => {
             }),
         });
         if(response.status===400){
-            alert("Error : An unknown error occurred!");
-            window.location.reload();
+            toast.error("Error : An unknown error occurred!");
+            setTimeout(() => {
+              window.location.reload();
+            }, 1500);
         }else{
             const json = await response.json();
             if (json.success) {
-                alert("Signed Up successfully!")
-    
+               toast.success("Signed Up successfully!")
+              
+               setTimeout(() => {
                 navigate("/login");
+               }, 1500);
+                
             }
         }
 
