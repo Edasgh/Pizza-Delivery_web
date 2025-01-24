@@ -116,7 +116,7 @@ const View_Products = () => {
                       searchProducts(c.product_type, c.category);
                     }
                      setTimeout(() => {
-                           setPLoading(true);
+                           setPLoading(false);
                       }, 1300);
                   }}
                 >
