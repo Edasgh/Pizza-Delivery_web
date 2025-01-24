@@ -152,23 +152,23 @@ const View_Products = () => {
           />
         ))}
 
-      {products.length === 0 && (
+       {products.length === 0 && (
         <>
-          {items &&
-            items.length !== 0 &&
-            items.map((product) => (
-              <ProductCard
-                key={product._id}
-                product={product}
-                variants={product.variants}
-              />
-            ))}
-          {!items ||
-            (items.length === 0 && (
-              <div style={{ width: "70vw", height: "50vh" }}>
-                <Loading />
-              </div>
-            ))}
+          {items && items.length !== 0 ? (
+            <>
+              {items.map((product) => (
+                <ProductCard
+                  key={product._id}
+                  product={product}
+                  variants={product.variants}
+                />
+              ))}
+            </>
+          ) : (
+            <div style={{ width: "70vw", height: "50vh" }}>
+              <Loading />
+            </div>
+          )}
         </>
       )}
     </>
