@@ -93,7 +93,7 @@ const Products = () => {
                     searchProducts(c.product_type, c.category);
                     setTimeout(() => {
                        setLoading(false);
-                      }, 1500);
+                      }, 1300);
                   }
                 }}
               >
