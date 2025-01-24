@@ -151,7 +151,12 @@ const View_Products = () => {
         </div>
       </div>
 
-      {products.length !== 0 &&
+       {pLoading===true && (
+             <div style={{ width: "70vw", height: "50vh" }}>
+              <Loading />
+            </div>
+            )}
+      {!pLoading && products.length !== 0 &&
         products.map((product) => (
           <ProductCard
             key={product._id}
@@ -160,13 +165,8 @@ const View_Products = () => {
           />
         ))}
           
-      {pLoading===true && (
-             <div style={{ width: "70vw", height: "50vh" }}>
-              <Loading />
-            </div>
-            )}
 
-      {products.length === 0 && (
+      {!pLoading && products.length === 0 && (
         <>
           {items && items.length !== 0 ? (
             <>
