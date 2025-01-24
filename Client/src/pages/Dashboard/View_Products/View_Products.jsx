@@ -113,13 +113,17 @@ const View_Products = () => {
                   key={c.id}
                   onClick={() => {
                     setPLoading(true);
-                    if (!c.product_type && !c.category) {
-                      dispatch(fetchProducts());
-                      setProducts([...items]);
-                    } else {
-                      searchProducts(c.product_type, c.category);
-                    }
-                          setPLoading(false);                    
+                     if (!c.product_type && !c.category) {
+                          dispatch(fetchProducts()).then(() => {
+                            setProducts([...items]);
+                            setPLoading(false);
+                          });
+                        } else {
+                          searchProducts(c.product_type, c.category).then(() => {
+                            setPLoading(false);
+                          });
+                        }
+                                              
                      }
                    }
                 >
