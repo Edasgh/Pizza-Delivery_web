@@ -49,7 +49,7 @@ const Categories = [
 const View_Products = () => {
   const dispatch = useDispatch();
   const { data: userDetails } = useSelector((state) => state.user);
-  const [pLoading,setPLoading]=useState(false);
+  
 
   const navigate = useNavigate();
 
@@ -60,6 +60,7 @@ const View_Products = () => {
   } = useSelector((state) => state.product);
 
   const [products, setProducts] = useState([]);
+  const [pLoading,setPLoading]=useState(false);
 
   const searchProducts = async (productType, category) => {
     if (category) {
@@ -69,6 +70,9 @@ const View_Products = () => {
       const data = await searchProduct_s(productType);
       setProducts(data);
     }
+    
+  
+
   };
 
   useEffect(() => {
@@ -108,17 +112,20 @@ const View_Products = () => {
                 <div
                   key={c.id}
                   onClick={() => {
-                     setPLoading(true);
+                    setPLoading(true);
                     if (!c.product_type && !c.category) {
                       dispatch(fetchProducts());
                       setProducts([...items]);
                     } else {
                       searchProducts(c.product_type, c.category);
                     }
-                       setTimeout(() => {
-                           setPLoading(false);
-                      }, 1300);
-                  }}
+                     
+                         setTimeout(() => {
+                          setPLoading(false);                    
+                         }, 1300);   
+                      
+                     }
+                   }
                 >
                   <div
                     className="category-badge"
