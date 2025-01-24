@@ -117,7 +117,7 @@ const View_Products = () => {
                     }
                      setTimeout(() => {
                            setPLoading(true);
-                      }, 1000);
+                      }, 1300);
                   }}
                 >
                   <div
