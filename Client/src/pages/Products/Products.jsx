@@ -89,7 +89,11 @@ const Products = () => {
                   if (c.link) {
                     navigate(c.link);
                   } else {
+                    setLoading(true);
                     searchProducts(c.product_type, c.category);
+                    setTimeout(() => {
+                       setLoading(false);
+                      }, 1500);
                   }
                 }}
               >
