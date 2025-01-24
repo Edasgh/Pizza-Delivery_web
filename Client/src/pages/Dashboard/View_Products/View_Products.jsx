@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import ProductCard from '../../../components/ProductCard/ProductCard';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ProductCard from "../../../components/ProductCard/ProductCard";
 import { useDispatch, useSelector } from "react-redux";
-import { searchProduct_s } from '../../../hooks/getProduct';
-import { STATUSES, fetchProducts } from '../../../redux/slices/productSlice';
-import ErrorPage from '../../../components/ErrorPage';
-import Loading from '../../../components/Loading';
-
-
-
+import { searchProduct_s } from "../../../hooks/getProduct";
+import { STATUSES, fetchProducts } from "../../../redux/slices/productSlice";
+import ErrorPage from "../../../components/ErrorPage";
+import Loading from "../../../components/Loading";
 
 const Categories = [
   {
@@ -30,24 +27,24 @@ const Categories = [
   {
     id: 3,
     title: "Pizza Crusts",
-    product_type: 1
+    product_type: 1,
   },
   {
     id: 4,
     title: "Pizza Toppings",
-    product_type: 3
+    product_type: 3,
   },
   {
     id: 5,
     title: "Cheeses",
-    product_type: 4
+    product_type: 4,
   },
   {
     id: 6,
     title: "Pizza Sauces",
     product_type: 2,
   },
-]
+];
 
 const View_Products = () => {
   const dispatch = useDispatch();
@@ -55,10 +52,13 @@ const View_Products = () => {
 
   const navigate = useNavigate();
 
-  const { data: items,itemsBelow20, sts } = useSelector((state) => state.product);
+  const {
+    data: items,
+    itemsBelow20,
+    sts,
+  } = useSelector((state) => state.product);
 
   const [products, setProducts] = useState([]);
-
 
   const searchProducts = async (productType, category) => {
     if (category) {
@@ -68,18 +68,14 @@ const View_Products = () => {
       const data = await searchProduct_s(productType);
       setProducts(data);
     }
-
-
-  }
+  };
 
   useEffect(() => {
     if (userDetails.isAdmin == false) {
       navigate("/");
     } else {
       dispatch(fetchProducts());
-
     }
-
   }, []);
 
   if (sts === STATUSES.LOADING) {
@@ -97,7 +93,6 @@ const View_Products = () => {
       </div>
     );
   }
-
 
   return (
     <>
@@ -152,7 +147,7 @@ const View_Products = () => {
           />
         ))}
 
-       {products.length === 0 && (
+      {products.length === 0 && (
         <>
           {items && items.length !== 0 ? (
             <>
@@ -173,6 +168,6 @@ const View_Products = () => {
       )}
     </>
   );
-}
+};
 
 export default View_Products;
