@@ -152,7 +152,7 @@ const View_Products = () => {
           />
         ))}
 
-      {products.length == 0 && (
+      {products.length === 0 && (
         <>
           {items &&
             items.length !== 0 &&
