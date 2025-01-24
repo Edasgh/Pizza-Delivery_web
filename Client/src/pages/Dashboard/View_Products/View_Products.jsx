@@ -79,7 +79,7 @@ const View_Products = () => {
     }
   }, []);
 
-  if (sts === STATUSES.LOADING || pLoading) {
+  if (sts === STATUSES.LOADING) {
     return (
       <div style={{ width: "70vw", height: "50vh" }}>
         <Loading />
@@ -151,6 +151,12 @@ const View_Products = () => {
             variants={product.variants}
           />
         ))}
+          
+      {pLoading && (
+             <div style={{ width: "70vw", height: "50vh" }}>
+              <Loading />
+            </div>
+            )}
 
       {products.length === 0 && (
         <>
