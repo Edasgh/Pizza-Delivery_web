@@ -75,6 +75,22 @@ const View_Products = () => {
 
   };
 
+  const handleCategoryClick = async (c) => {
+    setPLoading(true);
+    try {
+      if (!c.product_type && !c.category) {
+        await dispatch(fetchProducts()); // Wait for products to load
+        setProducts([...items]); // Update products state
+      } else {
+        await searchProducts(c.product_type, c.category);
+      }
+    } catch (error) {
+      console.error("Error loading category:", error);
+    } finally {
+      setPLoading(false); // Stop loading spinner
+    }
+  };
+
   useEffect(() => {
     if (userDetails.isAdmin == false) {
       navigate("/");
@@ -111,22 +127,7 @@ const View_Products = () => {
               return (
                 <div
                   key={c.id}
-                  onClick={() => {
-                    setPLoading(true);
-                     if (!c.product_type && !c.category) {
-                          dispatch(fetchProducts()).then(() => {
-                            setProducts([...items]);
-                            setPLoading(false);
-                          });
-                        } else {
-                          searchProducts(c.product_type, c.category).then(() => {
-                            setPLoading(false);
-                          });
-                        }
-                                              
-                     }
-                   }
-                >
+                  onClick={() => handleCategoryClick(c)}>
                   <div
                     className="category-badge"
                     style={{
