@@ -49,6 +49,7 @@ const Categories = [
 const View_Products = () => {
   const dispatch = useDispatch();
   const { data: userDetails } = useSelector((state) => state.user);
+  const [pLoading,setPLoading]=useState(false);
 
   const navigate = useNavigate();
 
@@ -78,7 +79,7 @@ const View_Products = () => {
     }
   }, []);
 
-  if (sts === STATUSES.LOADING) {
+  if (sts === STATUSES.LOADING || pLoading) {
     return (
       <div style={{ width: "70vw", height: "50vh" }}>
         <Loading />
@@ -107,12 +108,16 @@ const View_Products = () => {
                 <div
                   key={c.id}
                   onClick={() => {
+                     setPLoading(true);
                     if (!c.product_type && !c.category) {
                       dispatch(fetchProducts());
                       setProducts([...items]);
                     } else {
                       searchProducts(c.product_type, c.category);
                     }
+                     setTimeout(() => {
+                           setPLoading(true);
+                      }, 1000);
                   }}
                 >
                   <div
