@@ -115,7 +115,7 @@ const View_Products = () => {
                     } else {
                       searchProducts(c.product_type, c.category);
                     }
-                     setTimeout(() => {
+                       setTimeout(() => {
                            setPLoading(false);
                       }, 1300);
                   }}
@@ -152,7 +152,7 @@ const View_Products = () => {
           />
         ))}
           
-      {pLoading && (
+      {pLoading===true && (
              <div style={{ width: "70vw", height: "50vh" }}>
               <Loading />
             </div>
