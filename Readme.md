@@ -6,6 +6,8 @@ This is a web application designed for ordering pizzas online. It allows users t
 ## Live Link:
  https://pizza-delivery-web.onrender.com
 
+**Demo Video** : 
+[Watch Here](https://youtu.be/qz2tmYiAUfk)
 
 ## Features
 
@@ -26,8 +28,6 @@ This is a web application designed for ordering pizzas online. It allows users t
 
 4. Inventory Management and Product Stock Updates: For the admin side, i implemented a mini inventory management system. It tracked the availability of ingredients, updating stock levels after each order. This ensured a smooth and efficient process for both users and admin.And admin will be able to see notifications if any product’s quantity falls below a threshold, ensuring timely replenishment and preventing any disruption in service.
 
-**Demo Video** : 
-[Watch Here](https://youtu.be/qz2tmYiAUfk)
 
 ## Technologies Used
 
