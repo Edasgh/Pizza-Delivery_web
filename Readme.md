@@ -7,7 +7,9 @@ This is a web application designed for ordering pizzas online. It allows users t
  https://pizza-delivery-web.onrender.com
 
 **Demo Video** : 
-[Watch Here](https://youtu.be/qz2tmYiAUfk)
+<a href="https://youtu.be/qz2tmYiAUfk" target="_blank" >
+<img src="https://github.com/user-attachments/assets/b2cf2a34-536f-4609-9121-6655c8838432"/>
+ </a>
 
 ## Features
 
