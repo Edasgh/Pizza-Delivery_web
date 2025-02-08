@@ -50,7 +50,7 @@ const loginUser = async_handler(async (req, res) => {
     const user = await User.findOne({ email });
 
     if (user && (await user.matchPassword(password))) {
-        res.json({
+        res.status(200).json({
             _id: user._id,
             name: user.name,
             email: user.email,

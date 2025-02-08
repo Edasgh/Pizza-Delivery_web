@@ -15,43 +15,79 @@ const OrderCard = ({ items, totalPrice, address, isAdmin, orderStatus, order,  u
   const [ordersts, setOrdersts] = useState(orderStatus);
 
   const deleteOrder = async () => {
-    const response = await fetch(`${BACKEND_BASE_URL}/api/order/delete_order/${order._id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token": localStorage.getItem("token"),
+    let tId = toast.loading("Please wait...");
+    try {
+      const response = await fetch(
+        `${BACKEND_BASE_URL}/api/order/delete_order/${order._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
+      await response.json();
+      if (response.status == 200) {
+        toast.update(tId, {
+          render: "Order deleted successfully!",
+          type: "success",
+          isLoading: false,
+          autoClose: 1500,
+          closeButton: true,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
       }
-    });
-    await response.json();
-    if (response.status == 200) {
-      toast.success("Order deleted successfully!");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
-    } else {
-      toast.error("Something went wrong!")
+    } catch (error) {
+       toast.update(tId, {
+         render: "Something went wrong!",
+         type: "error",
+         isLoading: false,
+         autoClose: 1500,
+         closeButton: true,
+       });
     }
   }
 
   const updateOrderStatus = async () => {
-    const response = await fetch(`${BACKEND_BASE_URL}/api/order/${order._id}/update_status`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token": localStorage.getItem("token"),
-      },
-      body: JSON.stringify({
-        status: ordersts
-      })
-    });
-    await response.json();
-    if (response.status == 201) {
-      toast.success("Order status updated successfully!");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
-    } else {
-      toast.error("Something went wrong!")
+     let tId = toast.loading("Please wait...");
+    try {
+      const response = await fetch(
+        `${BACKEND_BASE_URL}/api/order/${order._id}/update_status`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+          body: JSON.stringify({
+            status: ordersts,
+          }),
+        }
+      );
+      await response.json();
+      if (response.status == 201) {
+        toast.update(tId, {
+          render: "Order status updated successfully!",
+          type: "success",
+          isLoading: false,
+          autoClose: 1500,
+          closeButton: true,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      }
+    } catch (error) {
+      toast.update(tId, {
+        render: "Something went wrong!",
+        type: "error",
+        isLoading: false,
+        autoClose: 1500,
+        closeButton: true,
+      });
     }
   }
 
@@ -61,7 +97,7 @@ const OrderCard = ({ items, totalPrice, address, isAdmin, orderStatus, order,  u
         className="profile-content"
         style={{ width: "80%", margin: "0 auto" }}
       >
-        {isAdmin == true && (
+        {isAdmin === true && (
           <>
             <span
               className="poppins-semibold user"
@@ -123,7 +159,7 @@ const OrderCard = ({ items, totalPrice, address, isAdmin, orderStatus, order,  u
             className="buttons-container order-card-btn-container"
             style={{ display: "flex", flexDirection: "column" }}
           >
-            {isAdmin == true && (
+            {isAdmin === true && (
               <div className="update-status">
                 <label htmlFor={`order-status-${order._id}`}>
                   Order Status :{" "}
@@ -152,7 +188,7 @@ const OrderCard = ({ items, totalPrice, address, isAdmin, orderStatus, order,  u
               </div>
             )}
 
-            {customerId == userId && (
+            {customerId === userId && (
               <button
                 className="delete-order poppins-medium"
                 title="Delete order"

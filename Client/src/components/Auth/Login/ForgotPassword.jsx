@@ -67,43 +67,45 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let tId = toast.loading("Please wait....");
-    if (credentials.password == credentials.confirmPassword) {
-      const response = await fetch(
-        `${BACKEND_BASE_URL}/api/user/forgot_password`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: credentials.email,
-            password: credentials.password,
-          }),
+    try {
+      if (credentials.password === credentials.confirmPassword) {
+        const response = await fetch(
+          `${BACKEND_BASE_URL}/api/user/forgot_password`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: credentials.email,
+              password: credentials.password,
+            }),
+          }
+        );
+        if (response.status === 201) {
+          toast.update(tId, {
+            render: "Password changed successfully!",
+            type: "success",
+            isLoading: false,
+            autoClose: 2000,
+            closeButton: true,
+          });
+          setTimeout(() => {
+            navigate("/login");
+          }, 1500);
         }
-      );
-      if (response.status == 201) {
-        toast.update(tId, {
-          render: "Password changed successfully!",
-          type: "success",
-          isLoading: false,
-          autoClose: 2000,
-          closeButton: true,
-        });
-        setTimeout(() => {
-          navigate("/login");
-        }, 1500);
       } else {
         toast.update(tId, {
-          render: "Error : An unknown error occurred!",
+          render: "Password and Confirm Password should match!",
           type: "error",
           isLoading: false,
           autoClose: 1500,
           closeButton: true,
         });
       }
-    } else {
+    } catch (error) {
       toast.update(tId, {
-        render: "Password and Confirm Password should match!",
+        render: "Error : An unknown error occurred!",
         type: "error",
         isLoading: false,
         autoClose: 1500,

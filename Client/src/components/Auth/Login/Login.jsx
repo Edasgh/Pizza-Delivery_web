@@ -12,44 +12,51 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let tId = toast.loading("Logging you in...");
-    const response = await fetch(`${BACKEND_BASE_URL}/api/user/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: credentials.email,
-        password: credentials.password,
-      }),
-    });
-
-    if (response.status === 400) {
-      toast.update(tId, {
-        render: "Error : Invalid email or password!",
-        type: "error",
-        isLoading: false,
-        autoClose: 1500,
-        closeButton: true,
+    try {
+      const response = await fetch(`${BACKEND_BASE_URL}/api/user/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: credentials.email,
+          password: credentials.password,
+        }),
       });
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
-    } else {
-      const json = await response.json();
-      if (json.success) {
+
+      if (response.status === 200) {
         localStorage.setItem("token", json.token);
         toast.update(tId, {
           render: "Logged in successfully!",
           type: "success",
           isLoading: false,
-          autoClose: 2000,
+          autoClose: 1800,
           closeButton: true,
         });
         setTimeout(() => {
-            navigate("/");
-            window.location.reload();
+          navigate("/");
+          window.location.reload();
         }, 1800);
+      } else if (response.status === 400) {
+        toast.update(tId, {
+          render: "Error : Invalid email or password!",
+          type: "error",
+          isLoading: false,
+          autoClose: 1500,
+          closeButton: true,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
       }
+    } catch (error) {
+      toast.update(tId, {
+        render: "Error : Something Went Wrong!",
+        type: "error",
+        isLoading: false,
+        autoClose: 1500,
+        closeButton: true,
+      });
     }
   };
 

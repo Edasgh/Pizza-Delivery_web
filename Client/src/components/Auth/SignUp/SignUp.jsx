@@ -18,32 +18,21 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let tId = toast.loading("Signing you up...");
-    const response = await fetch(`${BACKEND_BASE_URL}/api/user/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: credentials.name,
-        email: credentials.email,
-        password: credentials.password,
-        address: credentials.address,
-      }),
-    });
-    if (response.status === 400) {
-      toast.update(tId, {
-        render: "Error : An unknown error occurred!",
-        type: "error",
-        isLoading: false,
-        autoClose: 1500,
-        closeButton: true,
+    try {
+      const response = await fetch(`${BACKEND_BASE_URL}/api/user/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: credentials.name,
+          email: credentials.email,
+          password: credentials.password,
+          address: credentials.address,
+        }),
       });
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
-    } else {
-      const json = await response.json();
-      if (json.success) {
+
+      if (response.status === 201) {
         toast.update(tId, {
           render: "Signed Up successfully!",
           type: "success",
@@ -54,10 +43,29 @@ const SignUp = () => {
         setTimeout(() => {
           navigate("/login");
         }, 1500);
+      } else if (response.status === 400) {
+        toast.update(tId, {
+          render: "Error : An unknown error occurred!",
+          type: "error",
+          isLoading: false,
+          autoClose: 1500,
+          closeButton: true,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
       }
+    } catch (error) {
+      toast.update(tId, {
+        render: "Error : An unknown error occurred!",
+        type: "error",
+        isLoading: false,
+        autoClose: 1500,
+        closeButton: true,
+      });
+    } finally {
+      setCredentials({ name: "", email: "", password: "", address: "" });
     }
-
-    setCredentials({ name: "", email: "", password: "", address: "" });
   };
 
   const onChange = (e) => {

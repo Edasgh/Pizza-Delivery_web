@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BACKEND_BASE_URL } from '../../rootExports';
 
@@ -11,8 +11,9 @@ const CartCard = ({ product , link, address }) => {
   const [quantity, setQuantity] = useState(product?.quantity);
 
   const updateQty = async () => {
+    let tId = toast.loading("Processing..Please wait...");
     try {
-      await axios.put(`${BACKEND_BASE_URL}/api/product/cart/${product._id}/updateQty`, {
+      const response = await axios.put(`${BACKEND_BASE_URL}/api/product/cart/${product._id}/updateQty`, {
         quantity: quantity,
       },
         {
@@ -23,19 +24,35 @@ const CartCard = ({ product , link, address }) => {
         }
 
       );
-      toast.success("Updated Quantity successfully!");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1800);
+      if(response.status===201)
+      {
+        toast.update(tId, {
+          render: "Updated Quantity successfully!",
+          type: "success",
+          isLoading: false,
+          autoClose: 1800,
+          closeButton: true,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1800);
+      }
     } catch (error) {
-      toast.error("Something went wrong!");
+      toast.update(tId, {
+        render: "Something went wrong!",
+        type: "error",
+        isLoading: false,
+        autoClose: 1800,
+        closeButton: true,
+      });
       console.log(error);
     }
 
   }
   const removeFromCart = async () => {
+    let tId = toast.loading("Processing..Please wait...");
     try {
-      await axios.delete(`${BACKEND_BASE_URL}/api/product/cart/${product._id}/removeFromCart`,
+     const response = await axios.delete(`${BACKEND_BASE_URL}/api/product/cart/${product._id}/removeFromCart`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -44,12 +61,27 @@ const CartCard = ({ product , link, address }) => {
         }
 
       );
-      toast.success("Removed From Cart successfully!");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1800);
+      if(response.status===200)
+      {
+        toast.update(tId, {
+          render: "Removed From Cart successfully!",
+          type: "success",
+          isLoading: false,
+          autoClose: 1800,
+          closeButton: true,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1800);
+      }
     } catch (error) {
-      toast.error("Something went wrong!");
+      toast.update(tId, {
+        render: "Something went wrong!",
+        type: "error",
+        isLoading: false,
+        autoClose: 1800,
+        closeButton: true,
+      });
       console.log(error);
     }
 
@@ -58,7 +90,6 @@ const CartCard = ({ product , link, address }) => {
 
   return (
     <>
-      <ToastContainer position="top-center" theme="light" newestOnTop />
       <div
         className="profile-content"
         style={{ width: "90%", margin: "0 auto" }}
