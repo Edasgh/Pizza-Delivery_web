@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BACKEND_BASE_URL } from "../../../rootExports";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const token = localStorage.getItem("token");
@@ -19,27 +19,54 @@ const ForgotPassword = () => {
   const [emailDisplay, setEmailDisplay] = useState("initial");
 
   const verifyEmail = async () => {
-    const response = await fetch(`${BACKEND_BASE_URL}/api/user/verify_email`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: credentials.email,
-      }),
-    });
-    const json = await response.json();
-    if (json.success == true) {
-      toast.success("Email verified!");
-      setEmailDisplay("none");
-      setDisplay("initial");
-    } else {
-      toast.error("Error : No User found with this email!");
+    let tId = toast.loading("Please wait...");
+    try {
+      const response = await fetch(
+        `${BACKEND_BASE_URL}/api/user/verify_email`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: credentials.email,
+          }),
+        }
+      );
+
+      if (response.status === 200) {
+        toast.update(tId, {
+          render: "Email verified!",
+          type: "success",
+          isLoading: false,
+          autoClose: 2000,
+          closeButton: true,
+        });
+        setEmailDisplay("none");
+        setDisplay("initial");
+      } else if (response.status === 401) {
+        toast.update(tId, {
+          render: "Error : No User found with this email!",
+          type: "error",
+          isLoading: false,
+          autoClose: 1500,
+          closeButton: true,
+        });
+      }
+    } catch (error) {
+      toast.update(tId, {
+        render: error.message,
+        type: "error",
+        isLoading: false,
+        autoClose: 1500,
+        closeButton: true,
+      });
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let tId = toast.loading("Please wait....");
     if (credentials.password == credentials.confirmPassword) {
       const response = await fetch(
         `${BACKEND_BASE_URL}/api/user/forgot_password`,
@@ -54,17 +81,34 @@ const ForgotPassword = () => {
           }),
         }
       );
-      const json = await response.json();
       if (response.status == 201) {
-        toast.success("Password changed successfully!");
+        toast.update(tId, {
+          render: "Password changed successfully!",
+          type: "success",
+          isLoading: false,
+          autoClose: 2000,
+          closeButton: true,
+        });
         setTimeout(() => {
           navigate("/login");
         }, 1500);
       } else {
-        toast.error("Error : An unknown error occurred!");
+        toast.update(tId, {
+          render: "Error : An unknown error occurred!",
+          type: "error",
+          isLoading: false,
+          autoClose: 1500,
+          closeButton: true,
+        });
       }
     } else {
-      toast.error("Password and Confirm Password should match!");
+      toast.update(tId, {
+        render: "Password and Confirm Password should match!",
+        type: "error",
+        isLoading: false,
+        autoClose: 1500,
+        closeButton: true,
+      });
     }
   };
 
@@ -87,7 +131,6 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <ToastContainer position="top-center" theme="light" />
       <div className="main-div" style={{ width: "68vw", margin: "auto" }}>
         <h1 className="section-title poppins-semibold form-title">
           Change Your Password

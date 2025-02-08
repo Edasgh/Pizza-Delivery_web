@@ -1,5 +1,7 @@
 MONGO_URI=<your-database-url>
 PORT=8080
 JWT_SECRET=<your-jwt-secret>
+GITHUB_CLIENT_ID=<your-github-client-id>
+GITHUB_CLIENT_SECRET=<your-github-client-secret>
 KEY_ID=<your-razorpay-key-id>
 KEY_SECRET=<your-razorpay-key-secret>

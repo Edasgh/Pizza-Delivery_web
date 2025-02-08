@@ -3,7 +3,7 @@ import toppingImg from "../../assets/veg-toppings.jpg";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { BACKEND_BASE_URL } from '../../rootExports';
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
@@ -35,7 +35,6 @@ const ProductCard = ({ product, variants}) => {
   const navigate = useNavigate();
   return (
     <>
-      <ToastContainer position="top-center" theme="light" />
       <div
         className="profile-content"
         style={{ width: "90%", margin: "0 auto" }}

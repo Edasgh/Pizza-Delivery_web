@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BACKEND_BASE_URL } from "../../../rootExports";
 
@@ -11,7 +11,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    let tId = toast.loading("Logging you in...");
     const response = await fetch(`${BACKEND_BASE_URL}/api/user/login`, {
       method: "POST",
       headers: {
@@ -24,7 +24,13 @@ const Login = () => {
     });
 
     if (response.status === 400) {
-      toast.error("Error : Invalid email or password!");
+      toast.update(tId, {
+        render: "Error : Invalid email or password!",
+        type: "error",
+        isLoading: false,
+        autoClose: 1500,
+        closeButton: true,
+      });
       setTimeout(() => {
         window.location.reload();
       }, 1500);
@@ -32,7 +38,13 @@ const Login = () => {
       const json = await response.json();
       if (json.success) {
         localStorage.setItem("token", json.token);
-        toast.success("Logged in successfully!");
+        toast.update(tId, {
+          render: "Logged in successfully!",
+          type: "success",
+          isLoading: false,
+          autoClose: 2000,
+          closeButton: true,
+        });
         setTimeout(() => {
             navigate("/");
             window.location.reload();
@@ -53,7 +65,6 @@ const Login = () => {
   };
   return (
     <>
-      <ToastContainer position="top-center" theme="light" />
       <div className="main-div">
         <h1 className="section-title poppins-semibold">Log In to continue</h1>
         <form onSubmit={handleSubmit} className="login-signup-form">

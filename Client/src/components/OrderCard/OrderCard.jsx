@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { orderStatusArr } from '../../data';
 import OrderItem from '../OrderItem/OrderItem';
-import { ToastContainer, toast } from "react-toastify";
+import {toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BACKEND_BASE_URL } from '../../rootExports';
 
@@ -57,7 +57,6 @@ const OrderCard = ({ items, totalPrice, address, isAdmin, orderStatus, order,  u
 
   return (
     <>
-      <ToastContainer position="top-center" theme="light" />
       <div
         className="profile-content"
         style={{ width: "80%", margin: "0 auto" }}

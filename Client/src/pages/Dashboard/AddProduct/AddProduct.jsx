@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { variantsArr, product_types, categories } from '../../../data';
 import "../../../AddProduct_EditProduct.css";
 import axios from 'axios';
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { BACKEND_BASE_URL } from '../../../rootExports';
@@ -100,7 +100,6 @@ const AddProduct = () => {
 
   return (
     <>
-      <ToastContainer position="top-center" theme="light" />
       <div style={{ width: "100%" }}>
         <h1 className="poppins-semibold section-title form-title">
           Add a New Product

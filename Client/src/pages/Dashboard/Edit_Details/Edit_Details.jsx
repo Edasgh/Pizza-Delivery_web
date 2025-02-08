@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from "react";
 import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import {toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { BACKEND_BASE_URL } from '../../../rootExports';
@@ -47,7 +47,6 @@ const Edit_Details = () => {
 
     return (
       <>
-        <ToastContainer position="top-center" theme="light" />
         <div className="main-div" style={{ width: "100%" }}>
           <h1 className="section-title poppins-semibold form-title">
             Edit Your Details

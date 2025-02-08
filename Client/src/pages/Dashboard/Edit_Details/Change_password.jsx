@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BACKEND_BASE_URL } from "../../../rootExports";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Change_password = () => {
@@ -52,7 +52,6 @@ const Change_password = () => {
 
   return (
     <>
-      <ToastContainer position="top-center" theme="light" />
       <div className="main-div" style={{ width: "68vw", margin: "auto" }}>
         <h1 className="section-title poppins-semibold form-title">
           Change Your Password

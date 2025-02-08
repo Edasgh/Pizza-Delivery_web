@@ -10,7 +10,7 @@ import Crypto from "crypto-js";
 import OrderAddressModal from "../../../components/OrderModal/OrderAddressModal";
 import { openOrHideModal } from "../../../hooks/OpenOrHideModal";
 import Loading from "../../../components/Loading";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BACKEND_BASE_URL } from "../../../rootExports";
 import ErrorPage from "../../../components/ErrorPage";
@@ -185,7 +185,6 @@ const Cart = () => {
 
   return (
     <>
-     <ToastContainer position="top-center" theme="light" newestOnTop/>
       {token && (
         <>
           <div className="profile-header-content">

@@ -5,7 +5,7 @@ import "../../../AddProduct_EditProduct.css";
 import { getProduct } from '../../../hooks/getProduct';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { BACKEND_BASE_URL } from '../../../rootExports';
@@ -155,7 +155,6 @@ const Edit_Product = () => {
 
   return (
     <>
-    <ToastContainer position='top-center' theme='light'/>
     {seachQuery && quantityQuery ? (
       <>
       <div style={{ width: "100%" }}>

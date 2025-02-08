@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getProduct } from "../../hooks/getProduct";
 import { categories, product_types } from "../../data";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { BACKEND_BASE_URL } from "../../rootExports";
@@ -89,7 +89,6 @@ const Product = () => {
 
   return (
     <>
-      <ToastContainer position="top-center" theme="light" />
       <div className="product">
         <div className="left">
           <div className="mainImg">
