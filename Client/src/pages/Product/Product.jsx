@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Product.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProduct } from "../../hooks/getProduct";
@@ -8,31 +8,43 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { BACKEND_BASE_URL } from "../../rootExports";
+import ProductLoading from "../../components/ProductLoading/ProductLoading";
 
 const token = localStorage.getItem("token");
 
 const Product = () => {
+  const topRef = useRef(null);
   const navigate = useNavigate();
   const { productId } = useParams();
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState(" ");
-  const [quantity, setQuantity] = useState(1);
-  const [price, setPrice] = useState(0);
-  const [imgLink, setImgLink] = useState(" ");
-  const [Product_type, setProduct_type] = useState(0);
-  const [variants, setVariants] = useState([]);
-  const [category, setCategory] = useState(categories[0]);
+  const [productObj, setProductObj] = useState({
+    name: "",
+    description: "",
+    quantity: 1,
+    price: 0,
+    imgLink: "",
+    product_type: 0,
+    variants: [],
+    category: categories[0],
+  });
+
+  const [loading, setLoading] = useState(true);
 
   const getProductDetails = async () => {
     const data = await getProduct(productId);
-    setName(data.name);
-    setPrice(data.price);
-    setCategory(data.category);
-    setDescription(data.description);
-    setVariants(data.variants);
-    setProduct_type(data.product_type);
-    setImgLink(data.image);
+    setProductObj({
+      name: data.name,
+      description: data.description,
+      quantity: 1,
+      price: data.price,
+      imgLink: data.image,
+      product_type: data.product_type,
+      variants: [...data.variants],
+      category: data.category,
+    });
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
   };
 
   useEffect(() => {
@@ -40,6 +52,10 @@ const Product = () => {
       navigate("/login");
     } else {
       getProductDetails();
+    }
+    // Scroll to the top
+    if (topRef.current) {
+      topRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, []);
 
@@ -50,16 +66,16 @@ const Product = () => {
       if (variantVal === null) {
         toast.error("Please select a variant");
       } else {
-        if (Product_type == 0) {
+        if (productObj.product_type == 0) {
           try {
             await axios.post(
               `${BACKEND_BASE_URL}/api/product/cart/addToCart`,
               {
-                name,
+                name: productObj.name,
                 variant: variantVal,
-                price,
-                quantity,
-                category: category,
+                price: productObj.price,
+                quantity: productObj.quantity,
+                category: productObj.category,
                 productId: productId,
               },
               {
@@ -87,48 +103,69 @@ const Product = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <>
+        <div ref={topRef} />
+        <ProductLoading />
+      </>
+    );
+  }
+
   return (
     <>
+      <div ref={topRef} />
       <div className="product">
         <div className="left">
           <div className="mainImg">
-            {imgLink !== " " && <img src={imgLink} alt={name} />}
+            {productObj.imgLink !== " " && (
+              <img src={productObj.imgLink} alt={productObj.name} />
+            )}
           </div>
         </div>
         <div className="right">
           <h1 className="title">
             {" "}
-            {name !== "" && name[0].toUpperCase() + name.substring(1)}
+            {productObj.name !== "" &&
+              productObj.name[0].toUpperCase() + productObj.name.substring(1)}
           </h1>
           <div className="prices">
-            <h2 className="oldPrice">{price + 250}rs</h2>
-            <h2 className="price">{price}rs</h2>
+            <h2 className="oldPrice">{productObj.price + 250}rs</h2>
+            <h2 className="price">{productObj.price}rs</h2>
           </div>
 
           <span className="product-desc description" style={{ width: "16rem" }}>
-            {description}
+            {productObj.description}
           </span>
-          {Product_type == 0 && (
+          {productObj.product_type === 0 && (
             <div className="product-quantity">
               <button
                 className="minus"
                 onClick={() =>
-                  setQuantity((prev) => (prev === 1 ? 1 : prev - 1))
+                  setProductObj((prev) => ({
+                    ...prev,
+                    quantity: prev.quantity - 1,
+                  }))
                 }
               >
                 -
               </button>
-              <span>{quantity}</span>
+              <span>{productObj.quantity}</span>
               <button
                 className="plus"
-                onClick={() => setQuantity((prev) => prev + 1)}
+                onClick={() =>
+                  setProductObj((prev) => ({
+                    ...prev,
+                    quantity: prev.quantity + 1,
+                  }))
+                }
               >
                 +
               </button>
               {/* prev is the element or parameter of the setQuantity here */}
             </div>
           )}
-          {Product_type == 0 && (
+          {productObj.product_type === 0 && (
             <div className="option" id="variant-option-container">
               <label htmlFor="variant">Choose a Variant : </label>
               <select
@@ -146,13 +183,13 @@ const Product = () => {
                 required
               >
                 <option value={""}>Select a Variant</option>
-                {variants.map((variant) => (
+                {productObj.variants.map((variant) => (
                   <option
                     value={JSON.stringify({
                       name: variant.name,
                       price: variant.price,
                     })}
-                    key={`variant-${variants.indexOf(variant)}`}
+                    key={`variant-${productObj.variants.indexOf(variant)}`}
                   >
                     {variant.name} : ({variant.price}rs)
                   </option>
@@ -161,7 +198,7 @@ const Product = () => {
             </div>
           )}
 
-          {Product_type == 0 && (
+          {productObj.product_type == 0 && (
             <button
               className="add poppins-semibold"
               type="button"
@@ -176,8 +213,8 @@ const Product = () => {
 
           <div className="info">
             <span>Vendor : PizzaLand</span>
-            <span>Product Type : {product_types[Product_type]}</span>
-            <span>Category: {category}</span>
+            <span>Product Type : {product_types[productObj.product_type]}</span>
+            <span>Category: {productObj.category}</span>
           </div>
           <hr />
         </div>

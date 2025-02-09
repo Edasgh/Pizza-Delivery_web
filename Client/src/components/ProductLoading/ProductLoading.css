@@ -1,0 +1,154 @@
+/* Skeleton Container */
+.skeleton-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem;
+  margin: auto;
+}
+
+/* Image Skeleton */
+.skeleton-image {
+    width: 720px;
+  max-height: 720px;
+  min-height: 450px;
+  border-radius: 10px;
+}
+
+/* Text Skeleton */
+.skeleton-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* General Skeleton Styles */
+.skeleton {
+  background: linear-gradient(90deg, #f4f4f4 25%, #e0e0e0 50%, #f4f4f4 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 5px;
+}
+
+/* Title Skeleton */
+.skeleton-title {
+  width: 100%;
+  height: 56px;
+}
+
+/* Price Skeleton */
+.skeleton-price {
+  width: 30%;
+  height: 20px;
+}
+
+.skeleton-oldprice {
+  width: 40%;
+  height: 18px;
+}
+
+/* Description Skeleton */
+.skeleton-description {
+  width: 80%;
+  height: 15px;
+}
+
+/* Quantity Skeleton */
+.skeleton-quantity {
+  width: 140px;
+  height: 40px;
+}
+
+/* Dropdown Skeleton */
+.skeleton-dropdown {
+  width: 220px;
+  height: 35px;
+}
+
+/* Button Skeleton */
+.skeleton-button {
+  width: 160px;
+  height: 45px;
+}
+
+/* Text Lines Skeleton */
+.skeleton-text-line {
+  width: 60%;
+  height: 15px;
+}
+
+/* Loading Animation */
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 900px) {
+  .skeleton-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .skeleton-image {
+    width: 280px;
+    height: 280px;
+  }
+
+  .skeleton-title {
+    width: 70%;
+  }
+
+  .skeleton-price {
+    width: 40%;
+  }
+
+  .skeleton-oldprice {
+    width: 50%;
+  }
+
+  .skeleton-description {
+    width: 90%;
+  }
+
+  .skeleton-text-line {
+    width: 75%;
+  }
+}
+
+@media (max-width: 600px) {
+  .skeleton-container {
+    padding: 1rem;
+  }
+
+  .skeleton-image {
+    width: 220px;
+    height: 220px;
+  }
+
+  .skeleton-title {
+    width: 80%;
+    height: 20px;
+  }
+
+  .skeleton-price,
+  .skeleton-oldprice {
+    width: 50%;
+    height: 16px;
+  }
+
+  .skeleton-description {
+    width: 95%;
+    height: 12px;
+  }
+
+  .skeleton-text-line {
+    width: 85%;
+  }
+}

@@ -7,7 +7,8 @@ import toppingImg from "../../assets/veg-toppings.jpg";
 import Card from "../../components/Card/Card";
 import { searchProduct_s } from "../../hooks/getProduct";
 import { useNavigate } from "react-router-dom";
-import Loading from "../../components/Loading";
+
+import ProductsLoading from "../../components/ProductsLoading/ProductsLoading";
 
 const Products = () => {
   const navigate = useNavigate();
@@ -92,8 +93,8 @@ const Products = () => {
                     setLoading(true);
                     searchProducts(c.product_type, c.category);
                     setTimeout(() => {
-                       setLoading(false);
-                      }, 1300);
+                      setLoading(false);
+                    }, 1800);
                   }
                 }}
               >
@@ -109,30 +110,14 @@ const Products = () => {
       </div>
       <div className="flex-container">
         {loading ? (
-          <div
-            style={{
-              width: "99vw",
-              height: "50vh",
-            }}
-          >
-            <Loading />
-          </div>
+          <ProductsLoading />
         ) : (
           <>
             {products.length !== 0 &&
               products.map((product) => (
                 <Card key={product._id} product={product} />
               ))}
-            {products.length === 0 && (
-              <div
-                style={{
-                  width: "99vw",
-                  height: "50vh",
-                }}
-              >
-                <Loading />
-              </div>
-            )}
+            {products.length === 0 && <ProductsLoading />}
           </>
         )}
       </div>
