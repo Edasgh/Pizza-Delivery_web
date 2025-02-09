@@ -20,6 +20,7 @@ import PaymentSuccess from "./components/paymentSuccess/PaymentSuccess";
 import PaymentFailed from "./components/paymentFailed/PaymentFailed";
 import Notifications from "./pages/Dashboard/Notifications/Notifications";
 import About from "./pages/About/About";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const Layout = () => {
   return (
@@ -41,6 +42,16 @@ const DashboardLayOut = () => {
         </div>
       </div>
     </>
+  );
+};
+
+const LoginOauth = () => {
+  return (
+    <GoogleOAuthProvider
+      clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
+    >
+      <Login />
+    </GoogleOAuthProvider>
   );
 };
 
@@ -72,7 +83,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Login />,
+        element: <LoginOauth />,
       },
       {
         path: "/forgot_password",
