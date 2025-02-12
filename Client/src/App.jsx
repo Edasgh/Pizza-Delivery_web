@@ -21,6 +21,7 @@ import PaymentFailed from "./components/paymentFailed/PaymentFailed";
 import Notifications from "./pages/Dashboard/Notifications/Notifications";
 import About from "./pages/About/About";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import DataDeletion from "./pages/DataDeletion";
 
 const Layout = () => {
   return (
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Home />,
+      },
+      {
+        path:"/data_deletion_instructions",
+        element:<DataDeletion/>
       },
       {
         path: "/about",
