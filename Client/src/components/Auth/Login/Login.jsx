@@ -7,6 +7,7 @@ import { BACKEND_BASE_URL } from "../../../rootExports";
 
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+import FacebookLogin from "react-facebook-login";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -77,7 +78,7 @@ const Login = () => {
   };
 
   const oauthLogin = async ({ provider, email }) => {
-    if (provider === "google") {
+    if (provider === "google" || provider === "facebook") {
       let tId = toast.loading("Logging you in....");
       try {
         const response = await fetch(
@@ -92,7 +93,6 @@ const Login = () => {
             }),
           }
         );
-        console.log(response);
         const resp = await response.json();
         if (response.status === 200) {
           localStorage.setItem("token", resp.token);
@@ -108,7 +108,13 @@ const Login = () => {
             window.location.reload();
           }, 1000);
         } else if (response.status === 401) {
-          toast.error(resp.message, { autoClose: 950 });
+          toast.update(tId, {
+            render: "Can't find user!",
+            type: "error",
+            isLoading: false,
+            autoClose: 950,
+            closeButton: true,
+          });
           setTimeout(() => {
             navigate("/signup");
           }, 1500);
@@ -167,7 +173,13 @@ const Login = () => {
               window.location.reload();
             }, 1000);
           } else if (response.status === 401) {
-            toast.error("User doesn't exist!", { autoClose: 950 });
+            toast.update(tId, {
+              render: "User doesn't exist!",
+              type: "error",
+              isLoading: false,
+              autoClose: 950,
+              closeButton: true,
+            });
             setTimeout(() => {
               navigate(`/signup`);
             }, 1500);
@@ -282,20 +294,25 @@ const Login = () => {
             >
               <i className="fa-brands fa-github"></i>
             </button>
-            <button
-            type="button"
-              style={{
+            <FacebookLogin
+              buttonStyle={{
                 cursor: "pointer",
-                padding: ".05rem .5rem",
+                padding: ".4rem .5rem",
                 fontSize: "1.5rem",
                 backgroundColor: "white",
                 borderRadius: ".4rem",
                 border: "1.8px solid black",
                 color: "blue",
               }}
-            >
-              <i className="fa-brands fa-facebook"></i>
-            </button>
+              textButton=""
+              icon={<i className="fa-brands fa-facebook"></i>}
+              appId={`${import.meta.env.VITE_FACEBOOK_APP_ID}`} // we need to get this from facebook developer console by setting the app.
+              autoLoad={false}
+              fields="name,email"
+              callback={async (e) => {
+                await oauthLogin({ provider: "facebook", email: e.email });
+              }}
+            />
           </div>
         </form>
       </div>
