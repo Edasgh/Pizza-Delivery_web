@@ -7,7 +7,7 @@ import { BACKEND_BASE_URL } from "../../../rootExports";
 
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
-import FacebookLogin from "react-facebook-login";
+import FacebookLogin from "@greatsumini/react-facebook-login";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -295,22 +295,28 @@ const Login = () => {
               <i className="fa-brands fa-github"></i>
             </button>
             <FacebookLogin
-              buttonStyle={{
+              style={{
                 cursor: "pointer",
-                padding: ".4rem .5rem",
+                padding: ".05rem .5rem",
                 fontSize: "1.5rem",
                 backgroundColor: "white",
                 borderRadius: ".4rem",
                 border: "1.8px solid black",
                 color: "blue",
               }}
-              textButton=""
-              icon={<i className="fa-brands fa-facebook"></i>}
-              appId={`${import.meta.env.VITE_FACEBOOK_APP_ID}`} // we need to get this from facebook developer console by setting the app.
-              autoLoad={false}
-              fields="name,email"
-              callback={async (e) => {
-                await oauthLogin({ provider: "facebook", email: e.email });
+              children={<i className="fa-brands fa-facebook"></i>}
+              appId={`${import.meta.env.VITE_FACEBOOK_APP_ID}`}
+              onSuccess={() => {
+                console.log("Login Success!");
+              }}
+              onFail={(error) => {
+                console.log("Login Failed!", error);
+              }}
+              onProfileSuccess={async (response) => {
+                await oauthLogin({
+                  provider: "facebook",
+                  email: response.email,
+                });
               }}
             />
           </div>
