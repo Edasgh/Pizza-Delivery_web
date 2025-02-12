@@ -19,6 +19,8 @@ const ForgotPassword = () => {
   const [emailDisplay, setEmailDisplay] = useState("initial");
 
   const verifyEmail = async () => {
+    if (credentials.email === "") return;
+
     let tId = toast.loading("Please wait...");
     try {
       const response = await fetch(
