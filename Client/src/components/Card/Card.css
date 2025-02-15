@@ -11,8 +11,7 @@
   height: 400px;
   overflow: hidden;
   position: relative;
-  transition: all .2s ease;
-
+  transition: all 0.2s ease;
 }
 
 .card .images img {
@@ -26,8 +25,15 @@
   z-index: 1;
 }
 
+
+.card .images .mainImg:hover {
+  z-index: 1;
+  transform: scale(1.15);
+  transition: all ease-in 0.4s;
+}
+
 .card .images span {
-  background-color:var(--text-colorb);
+  background-color: var(--text-colorb);
   color: teal;
   padding: 3px 5px;
   margin: 5px;
@@ -36,13 +42,10 @@
   z-index: 3;
 }
 
-
-
 .card .prices {
   display: flex;
   flex-direction: row;
   gap: 10px;
-
 }
 
 .card .prices .oldPrice {
@@ -58,29 +61,25 @@
   color: #008000;
 }
 
-
 .card h2 {
   font-size: 18px;
   font-weight: 700;
 }
-
-
 
 .card span {
   position: absolute;
 }
 
 .card .button-container {
-  margin-top: .8rem;
+  margin-top: 0.8rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-
 }
 
 .card .card-btn {
-  flex: .9;
+  flex: 0.9;
   padding: 0.7rem 1rem;
   background-color: var(--color-create);
   color: var(--text-colorb);
@@ -91,10 +90,10 @@
 }
 
 .card .card-btn:hover {
-  background-color:var(--color-create-hover)
+  background-color: var(--color-create-hover);
 }
 
-.card-btn .cart-icon{
+.card-btn .cart-icon {
   color: var(--text-colorb);
 }
 
@@ -119,7 +118,7 @@
   cursor: pointer;
   font-weight: bold;
 
-  &:hover{
+  &:hover {
     background-color: var(--color-qty-hover);
   }
 }
