@@ -123,44 +123,50 @@ const Products = () => {
             );
           })}
       </div>
-      <div
-        className="buttons-container"
-        style={{ alignItems: "center", justifyContent: "center", margin: "0" }}
-      >
-        <button
-          disabled={page === 4}
+      {products.length > 0 && (
+        <div
+          className="buttons-container"
           style={{
-            color: page === 4 ? "gray" : "black",
-            cursor: page === 4 ? "default" : "pointer",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "0",
           }}
-          onClick={goToPrev}
         >
-          Prev
-        </button>
-        <input
-          type="text"
-          disabled
-          value={`${index + 1}-${
-            page > products.length ? products.length : page
-          } of ${products.length}`}
-          style={{
-            width: "9rem",
-            textAlign: "center",
-            fontSize: "1rem",
-            padding: ".3rem 0",
-          }}
-        />
-        <button
-          disabled={page >= products.length}
-          style={{
-            color: page >= products.length ? "gray" : "black",
-            cursor: page >= products.length ? "default" : "pointer",
-          }}
-          onClick={goToNext}
-        >
-          Next
-        </button>
-      </div>
+          <button
+            disabled={page === 4}
+            style={{
+              color: page === 4 ? "gray" : "black",
+              cursor: page === 4 ? "default" : "pointer",
+            }}
+            onClick={goToPrev}
+          >
+            Prev
+          </button>
+          <input
+            type="text"
+            disabled
+            value={`${index + 1}-${
+              page > products.length ? products.length : page
+            } of ${products.length}`}
+            style={{
+              width: "9rem",
+              textAlign: "center",
+              fontSize: "1rem",
+              padding: ".3rem 0",
+            }}
+          />
+          <button
+            disabled={page >= products.length}
+            style={{
+              color: page >= products.length ? "gray" : "black",
+              cursor: page >= products.length ? "default" : "pointer",
+            }}
+            onClick={goToNext}
+          >
+            Next
+          </button>
+        </div>
+      )}
       <div className="flex-container">
         {loading ? (
           <ProductsLoading />
