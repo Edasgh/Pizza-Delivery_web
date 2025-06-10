@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ProductCard from "../../../components/ProductCard/ProductCard";
 import { useDispatch, useSelector } from "react-redux";
@@ -49,9 +49,9 @@ const Categories = [
 const View_Products = () => {
   const dispatch = useDispatch();
   const { data: userDetails } = useSelector((state) => state.user);
-  
 
   const navigate = useNavigate();
+  const topRef = useRef(null);
 
   const {
     data: items,
@@ -60,7 +60,9 @@ const View_Products = () => {
   } = useSelector((state) => state.product);
 
   const [products, setProducts] = useState([]);
-  const [pLoading,setPLoading]=useState(false);
+  const [pLoading, setPLoading] = useState(false);
+  const [index, setIndex] = useState(0);
+  const [page, setPage] = useState(4);
 
   const searchProducts = async (productType, category) => {
     if (category) {
@@ -70,12 +72,10 @@ const View_Products = () => {
       const data = await searchProduct_s(productType);
       setProducts(data);
     }
-    
-  
-
   };
 
   const handleCategoryClick = async (c) => {
+    topRef.current.scrollIntoView({ behavior: "smooth" });
     setPLoading(true);
     try {
       if (!c.product_type && !c.category) {
@@ -88,7 +88,21 @@ const View_Products = () => {
       console.error("Error loading category:", error);
     } finally {
       setPLoading(false); // Stop loading spinner
+      setIndex(0);
+      setPage(4);
     }
+  };
+
+  const goToNext = () => {
+    setIndex((prev) => (prev = prev + 4));
+    setPage((prev) => (prev = prev + 4));
+    topRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const goToPrev = () => {
+    setIndex((prev) => prev - 4);
+    setPage((prev) => (prev = prev - 4));
+    topRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -96,6 +110,7 @@ const View_Products = () => {
       navigate("/");
     } else {
       dispatch(fetchProducts());
+      // scrollToTop();
     }
   }, []);
 
@@ -115,9 +130,11 @@ const View_Products = () => {
     );
   }
 
+  const displayedProducts = products.length > 0 ? products : items || [];
+
   return (
     <>
-      <div className="profile-header-content">
+      <div className="profile-header-content" ref={topRef}>
         <h2 className="poppins-semibold dashboard-section-title">
           All Products
         </h2>
@@ -125,9 +142,7 @@ const View_Products = () => {
           {Categories &&
             Categories.map((c) => {
               return (
-                <div
-                  key={c.id}
-                  onClick={() => handleCategoryClick(c)}>
+                <div key={c.id} onClick={() => handleCategoryClick(c)}>
                   <div
                     className="category-badge"
                     style={{
@@ -151,37 +166,63 @@ const View_Products = () => {
         </div>
       </div>
 
-       {pLoading===true && (
-             <div style={{ width: "70vw", height: "50vh" }}>
-              <Loading />
-            </div>
-            )}
-      {!pLoading && products.length !== 0 &&
-        products.map((product) => (
-          <ProductCard
-            key={product._id}
-            product={product}
-            variants={product.variants}
-          />
-        ))}
-          
-
-      {!pLoading && products.length === 0 && (
+      {pLoading === true ? (
+        <div style={{ width: "70vw", height: "50vh" }}>
+          <Loading />
+        </div>
+      ) : (
         <>
-          {items && items.length !== 0 ? (
+          {displayedProducts.length > 0 && (
             <>
-              {items.map((product) => (
+              {displayedProducts.slice(index, page).map((product) => (
                 <ProductCard
                   key={product._id}
                   product={product}
                   variants={product.variants}
                 />
               ))}
+              <div
+                className="buttons-container"
+                style={{ alignItems: "center", justifyContent: "center" }}
+              >
+                <button
+                  disabled={page === 4}
+                  style={{
+                    color: page === 4 ? "gray" : "black",
+                    cursor: page === 4 ? "default" : "pointer",
+                  }}
+                  onClick={goToPrev}
+                >
+                  Prev
+                </button>
+                <input
+                  type="text"
+                  disabled
+                  value={`${index + 1}-${
+                    page > displayedProducts.length
+                      ? displayedProducts.length
+                      : page
+                  } of ${displayedProducts.length}`}
+                  style={{
+                    width: "9rem",
+                    textAlign: "center",
+                    fontSize: "1rem",
+                    padding: ".3rem 0",
+                  }}
+                />
+                <button
+                  disabled={page === displayedProducts.length}
+                  style={{
+                    color: page === displayedProducts.length ? "gray" : "black",
+                    cursor:
+                      page === displayedProducts.length ? "default" : "pointer",
+                  }}
+                  onClick={goToNext}
+                >
+                  Next
+                </button>
+              </div>
             </>
-          ) : (
-            <div style={{ width: "70vw", height: "50vh" }}>
-              <Loading />
-            </div>
           )}
         </>
       )}

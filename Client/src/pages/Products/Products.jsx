@@ -15,8 +15,12 @@ const Products = () => {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [index, setIndex] = useState(0);
+  const [page, setPage] = useState(4);
 
   const searchProducts = async (productType, category) => {
+    setIndex(0);
+    setPage(4);
     if (category) {
       const data = await searchProduct_s(productType, category);
       setProducts(data);
@@ -70,6 +74,17 @@ const Products = () => {
       link: "/custom_pizza",
     },
   ];
+
+  const goToNext = () => {
+    setIndex((prev) => (prev = prev + 4));
+    setPage((prev) => (prev = prev + 4));
+  };
+
+  const goToPrev = () => {
+    setIndex((prev) => prev - 4);
+    setPage((prev) => (prev = prev - 4));
+  };
+
   return (
     <div className="main-div">
       <h1
@@ -108,15 +123,53 @@ const Products = () => {
             );
           })}
       </div>
+      <div
+        className="buttons-container"
+        style={{ alignItems: "center", justifyContent: "center", margin: "0" }}
+      >
+        <button
+          disabled={page === 4}
+          style={{
+            color: page === 4 ? "gray" : "black",
+            cursor: page === 4 ? "default" : "pointer",
+          }}
+          onClick={goToPrev}
+        >
+          Prev
+        </button>
+        <input
+          type="text"
+          disabled
+          value={`${index + 1}-${
+            page > products.length ? products.length : page
+          } of ${products.length}`}
+          style={{
+            width: "9rem",
+            textAlign: "center",
+            fontSize: "1rem",
+            padding: ".3rem 0",
+          }}
+        />
+        <button
+          disabled={page >= products.length}
+          style={{
+            color: page >= products.length ? "gray" : "black",
+            cursor: page >= products.length ? "default" : "pointer",
+          }}
+          onClick={goToNext}
+        >
+          Next
+        </button>
+      </div>
       <div className="flex-container">
         {loading ? (
           <ProductsLoading />
         ) : (
           <>
             {products.length !== 0 &&
-              products.map((product) => (
-                <Card key={product._id} product={product} />
-              ))}
+              products
+                .slice(index, page)
+                .map((product) => <Card key={product._id} product={product} />)}
             {products.length === 0 && <ProductsLoading />}
           </>
         )}
