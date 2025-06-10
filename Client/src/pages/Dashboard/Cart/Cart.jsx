@@ -20,6 +20,24 @@ const token = localStorage.getItem("token");
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [index, setIndex] = useState(0);
+  const [page, setPage] = useState(2);
+
+  const goToNext = () => {
+    setIndex((prev) => (prev = prev + 2));
+    setPage((prev) => (prev = prev + 2));
+    setTimeout(()=>{
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    },0);
+  };
+
+  const goToPrev = () => {
+    setIndex((prev) => prev - 2);
+    setPage((prev) => (prev = prev - 2));
+    setTimeout(()=>{
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    },0);
+  };
 
   useEffect(() => {
     if (!token) {
@@ -52,7 +70,7 @@ const Cart = () => {
     );
   }
 
-  if (status === STATUSES.ERROR) {
+  if (status === STATUSES.ERROR || !token) {
     return (
       <div style={{ width: "70vw", height: "70vh" }}>
         <ErrorPage />
@@ -149,7 +167,6 @@ const Cart = () => {
               } catch (error) {
                 toast.error("Something went wrong!");
                 console.log(error);
-
               }
             }
           } else {
@@ -170,13 +187,13 @@ const Cart = () => {
     };
     const razor = new window.Razorpay(options);
     razor.on("payment.failed", function (response) {
-      console.log(response.error.code);
-      console.log(response.error.description);
-      console.log(response.error.source);
-      console.log(response.error.step);
-      console.log(response.error.reason);
-      console.log(response.error.metadata.order_id);
-      console.log(response.error.metadata.payment_id);
+      // console.log(response.error.code);
+      // console.log(response.error.description);
+      // console.log(response.error.source);
+      // console.log(response.error.step);
+      // console.log(response.error.reason);
+      // console.log(response.error.metadata.order_id);
+      // console.log(response.error.metadata.payment_id);
       navigate(`/paymentfailure`);
     });
 
@@ -185,93 +202,129 @@ const Cart = () => {
 
   return (
     <>
-      {token && (
+      <div className="profile-header-content">
+        <h2 className="poppins-semibold dashboard-section-title">
+          My Cart (Total {products.length} Item(s) : total price = {totalPrice}{" "}
+          rs {totalPrice !== 0 && <span>, total delivery charge = 50</span>})
+        </h2>
+      </div>
+      {products.length !== 0 && (
         <>
-          <div className="profile-header-content">
-            <h2 className="poppins-semibold dashboard-section-title">
-              My Cart (Total {products.length} Item(s) : total price ={" "}
-              {totalPrice} rs{" "}
-              {totalPrice !== 0 && <span>, total delivery charge = 50</span>})
-            </h2>
+          <OrderAddressModal
+            setAddress={setAddress}
+            address={address}
+            placeOrder={checkoutHandler}
+          />
+          {/* props : name,category,variant,quantity,price,removeFromCart */}
+          {products.slice(index, page).map((product) => (
+            <CartCard
+              key={product._id}
+              product={product}
+              link={`/${product.productId}/product`}
+              address={address === "" ? user.address : address}
+            />
+          ))}
+          <div
+            className="buttons-container"
+            style={{ alignItems: "center", justifyContent: "center" }}
+          >
+            <button
+              disabled={page === 2}
+              style={{
+                color: page === 2 ? "gray" : "black",
+                cursor: page === 2 ? "default" : "pointer",
+              }}
+              onClick={goToPrev}
+            >
+              Prev
+            </button>
+            <input
+              type="text"
+              disabled
+              value={`${index + 1}-${
+                page > products.length ? products.length : page
+              } of ${products.length}`}
+              style={{
+                width: "9rem",
+                textAlign: "center",
+                fontSize: "1rem",
+                padding: ".3rem 0",
+              }}
+            />
+            <button
+              disabled={page >= products.length}
+              style={{
+                color: page >= products.length ? "gray" : "black",
+                cursor: page >= products.length ? "default" : "pointer",
+              }}
+              onClick={goToNext}
+            >
+              Next
+            </button>
           </div>
-          {products.length !== 0 && (
+          {address == "" ? (
             <>
-              <OrderAddressModal setAddress={setAddress} address={address} placeOrder={checkoutHandler} />
-              {/* props : name,category,variant,quantity,price,removeFromCart */}
-              {products.map((product) => (
-                <CartCard
-                  key={product._id}
-                  product={product}
-                  link={`/${product.productId}/product`}
-                  address={address === "" ? user.address : address}
-                />
-              ))}
-              {address == "" ? (
-                <>
-                  <p className="poppins-medium" style={{ color: "grey" }}>
-                    Your Current Address is the address added in your account
-                  </p>
-                </>
-              ) : (
-                <>
-                  <p
-                    className="poppins-medium"
-                    style={{ color: "var(--color-primary)" }}
-                  >
-                    Custom Address added for this order
-                  </p>
-                </>
-              )}
-              <ul type="none" className="buttons-container">
-                <button
-                  type="button"
-                  className="update-qty poppins-semibold"
-                  onClick={() => {
-                    openOrHideModal();
-                   
-                  }}
-                >
-                  Add a different Order Address
-                </button>
-                <button
-                  className="place-order poppins-semibold"
-                  onClick={() => {
-                    checkoutHandler();
-                  }}
-                >
-                  Place Order
-                </button>
-              </ul>
+              <p className="poppins-medium" style={{ color: "grey" }}>
+                Your Current Address is the address added in your account
+              </p>
             </>
-          )}
-
-          {(!products || products.length == 0) && (
+          ) : (
             <>
               <p
                 className="poppins-medium"
-                style={{ color: "var(--text-colora)", fontSize: "1.4rem" }}
+                style={{ color: "var(--color-primary)" }}
               >
-                No items : Add a Product to Cart
+                Custom Address added for this order
               </p>
-              <button
-                className="poppins-semibold"
-                style={{
-                  padding: " .4rem .8rem",
-                  fontSize: " 1rem",
-                  outline: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  backgroundColor: "var(--color-update)",
-                  color: "var(--text-colorb)",
-                }}
-                onClick={() => {
-                  navigate(`/`);
-                }}
-              >
-                Explore Items
-              </button>
             </>
           )}
+          <ul type="none" className="buttons-container">
+            <button
+              type="button"
+              className="update-qty poppins-semibold"
+              onClick={() => {
+                openOrHideModal();
+              }}
+            >
+              Add a different Order Address
+            </button>
+            <button
+              className="place-order poppins-semibold"
+              onClick={() => {
+                checkoutHandler();
+              }}
+            >
+              Place Order
+            </button>
+          </ul>
+        </>
+      )}
+
+      {(!products || products.length === 0) && (
+        <>
+          <p
+            className="poppins-medium"
+            style={{ color: "var(--text-colora)", fontSize: "1.4rem" }}
+          >
+            No items : Add a Product to Cart
+          </p>
+          <button
+            className="poppins-semibold"
+            style={{
+              padding: " .4rem .8rem",
+              fontSize: " 1rem",
+              outline: "none",
+              border: "none",
+              cursor: "pointer",
+              backgroundColor: "var(--color-update)",
+              color: "var(--text-colorb)",
+            }}
+            onClick={() => {
+              navigate(`/`);
+            }}
+          >
+            Explore Items
+          </button>
         </>
       )}
     </>

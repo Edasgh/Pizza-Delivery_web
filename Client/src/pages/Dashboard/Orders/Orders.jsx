@@ -1,30 +1,45 @@
-import React, { useEffect } from 'react';
-import OrderCard from '../../../components/OrderCard/OrderCard';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchOrders } from '../../../redux/slices/orderSlice';
-import { STATUSES } from '../../../redux/slices/productSlice';
-import { getUserDetails } from '../../../redux/slices/userSlice';
-import Loading from '../../../components/Loading';
-import ErrorPage from '../../../components/ErrorPage';
-
-
+import React, { useEffect, useState } from "react";
+import OrderCard from "../../../components/OrderCard/OrderCard";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchOrders } from "../../../redux/slices/orderSlice";
+import { STATUSES } from "../../../redux/slices/productSlice";
+import { getUserDetails } from "../../../redux/slices/userSlice";
+import Loading from "../../../components/Loading";
+import ErrorPage from "../../../components/ErrorPage";
 
 const token = localStorage.getItem("token");
 
 const Orders = () => {
-  const { data: userDetails,sts } = useSelector((state) => state.user);
+  const { data: userDetails, sts } = useSelector((state) => state.user);
 
-  const { data: orders , status} = useSelector((state) => state.order);
+  const { data: orders, status } = useSelector((state) => state.order);
 
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+  const [index, setIndex] = useState(0);
+  const [page, setPage] = useState(2);
+  const goToNext = () => {
+    setIndex((prev) => (prev = prev + 2));
+    setPage((prev) => (prev = prev + 2));
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 0);
+  };
+
+  const goToPrev = () => {
+    setIndex((prev) => prev - 2);
+    setPage((prev) => (prev = prev - 2));
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 0);
+  };
 
   useEffect(() => {
     if (!token) {
       navigate("/login");
-    }else{
+    } else {
       dispatch(getUserDetails());
       dispatch(fetchOrders());
     }
@@ -38,16 +53,13 @@ const Orders = () => {
     );
   }
 
-  if(status === STATUSES.ERROR){
+  if (status === STATUSES.ERROR) {
     return (
       <div style={{ width: "70vw", height: "70vh" }}>
         <ErrorPage />
       </div>
     );
   }
-
-
-  
 
   return (
     <>
@@ -81,22 +93,63 @@ const Orders = () => {
           </button>
         </>
       )}
-      {orders &&
-        orders.length !== 0 &&
-        orders.map((order) => (
-          <OrderCard
-            key={order._id}
-            items={order.items}
-            address={order.address}
-            isAdmin={userDetails.isAdmin}
-            totalPrice={order.totalPrice}
-            orderStatus={order.status}
-            order={order}
-            userId={userDetails._id}
-          />
-        ))}
+      {orders && orders.length !== 0 && (
+        <>
+          
+          {orders.slice(index, page).map((order) => (
+            <OrderCard
+              key={order._id}
+              items={order.items}
+              address={order.address}
+              isAdmin={userDetails.isAdmin}
+              totalPrice={order.totalPrice}
+              orderStatus={order.status}
+              order={order}
+              userId={userDetails._id}
+            />
+          ))}
+          <div
+            className="buttons-container"
+            style={{ alignItems: "center", justifyContent: "center" }}
+          >
+            <button
+              disabled={page === 2}
+              style={{
+                color: page === 2 ? "gray" : "black",
+                cursor: page === 2 ? "default" : "pointer",
+              }}
+              onClick={goToPrev}
+            >
+              Prev
+            </button>
+            <input
+              type="text"
+              disabled
+              value={`${index + 1}-${
+                page > orders.length ? orders.length : page
+              } of ${orders.length}`}
+              style={{
+                width: "9rem",
+                textAlign: "center",
+                fontSize: "1rem",
+                padding: ".3rem 0",
+              }}
+            />
+            <button
+              disabled={page >= orders.length}
+              style={{
+                color: page >= orders.length ? "gray" : "black",
+                cursor: page >= orders.length ? "default" : "pointer",
+              }}
+              onClick={goToNext}
+            >
+              Next
+            </button>
+          </div>
+        </>
+      )}
     </>
   );
-}
+};
 
-export default Orders
+export default Orders;
